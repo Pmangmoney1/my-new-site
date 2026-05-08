@@ -1,32 +1,24 @@
 {
-  "logo": "FEEL AGENCY",
-  "heroTitle": "PREMIUM <br> CASINO VIP SERVICE",
-  "heroText": "필리핀 카지노 VIP 서비스 및 프리미엄 여행 지원 서비스",
-  "heroButton": "상담 문의",
-
   "serviceTitle": "VIP SERVICE",
-  "serviceDesc": "필에이전시 프리미엄 카지노 서비스",
-
-  "card1Title": "호텔 예약",
-  "card1Text": "VIP 호텔 및 카지노 예약 지원",
-  "card1Image": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1974&auto=format&fit=crop",
-
-  "card2Title": "카지노 서비스",
-  "card2Text": "바카라, 슬롯, 라이브 카지노 서비스",
-  "card2Image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1974&auto=format&fit=crop",
-
-  "card3Title": "여행 지원",
-  "card3Text": "공항 픽업 및 현지 가이드 지원",
-  "card3Image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1973&auto=format&fit=crop",
-
-  "contactTitle": "24시간 고객센터",
+  "serviceDesc": "JUJU 에이전시 프리미엄 카지노 서비스",
+  "heroText": "필리핀 카지노 VIP 서비스 및 프리미엄 여행 지원 서비스",
+  "footerText": "@asim_ace ",
+  "logo": "JUJU AGENCY",
+  "heroButton": "상담 문의",
   "contactText": "텔레그램 또는 카카오톡으로 문의 가능합니다.",
-
-  "telegramLink": "https://t.me/Feelavt",
-  "telegramId": "@Feelavt",
-
+  "card1Text": "VIP 호텔 및 카지노 예약 지원",
+  "card2Text": "바카라, 슬롯, 라이브 카지노 서비스",
+  "card3Text": "공항 픽업 및 현지 가이드 지원",
+  "card3Title": "여행 지원",
+  "card2Title": "카지노 서비스",
+  "card1Title": "호텔 예약",
+  "contactTitle": "24시간 고객센터",
+  "card3Image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1973&auto=format&fit=crop",
+  "card2Image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1974&auto=format&fit=crop",
+  "card1Image": "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1974&auto=format&fit=crop",
+  "telegramLink": "test",
+  "telegramId": "test",
   "kakaoLink": "#",
-  "kakaoId": "feelavt",
-
-  "footerText": "Copyright © FEEL AGENCY"
+  "kakaoId": "test",
+  "heroTitle": "PREMIUM <br> CASINO VIP SERVICE"
 }
