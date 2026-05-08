@@ -14,6 +14,8 @@ collections:
         file: "content/site.json"
         fields:
           - {label: "로고", name: "logo", widget: "string"}
+          # 메인 배경 이미지 업로드 칸 추가됨
+          - {label: "메인 배경 이미지", name: "heroImage", widget: "image"}
           - {label: "메인 제목", name: "heroTitle", widget: "string"}
           - {label: "메인 설명", name: "heroText", widget: "text"}
           - {label: "메인 버튼", name: "heroButton", widget: "string"}
