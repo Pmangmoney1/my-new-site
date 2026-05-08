@@ -8,5 +8,19 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // 1번 방법: 미리보기 창(오른쪽)의 모든 이미지 크기를 강제로 제한
+    CMS.registerPreviewStyle(`
+      img {
+        max-width: 100% !important;
+        max-height: 200px !important; /* 이미지 높이를 200px로 제한 */
+        object-fit: contain !important;
+        display: block;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+      }
+    `, { raw: true });
+  </script>
 </body>
 </html>
