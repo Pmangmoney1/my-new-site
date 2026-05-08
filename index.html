@@ -160,12 +160,20 @@ border-color: #ffd700;
 box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.card img{
-width:100%;
-height:auto;
-max-height:240px;
-object-fit:cover;
-display:block;
+/* 이 부분만 찾아서 교체하세요 */
+.card img {
+  width: 100%;
+  height: 240px;      /* 기본 높이 유지 */
+  object-fit: cover;
+  display: block;
+}
+
+/* 관리자 미리보기 창(좁은 화면)에서 이미지 크기 강제 최적화 */
+@media (max-width: 1200px) {
+  .card img {
+    height: auto;
+    max-height: 180px; /* 미리보기 창에서는 높이를 더 낮게 제한 */
+  }
 }
 
 .card-content{
