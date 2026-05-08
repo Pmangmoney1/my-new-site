@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>FEEL AGENCY</title>
 
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -361,6 +363,18 @@ document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId
 document.getElementById('footerText').innerText = data.footerText;
 
 });
+</script>
+
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
 </script>
 
 </body>
