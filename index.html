@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<div class="contact-buttons">
+
+<a id="telegramLink" href="#" class="contact-btn telegram" target="_blank">
+TELEGRAM
+</a>
+
+<a id="kakaoLink" href="#" class="contact-btn kakao" target="_blank">
+KAKAO TALK
+</a>
+
+</div>
+
+</div>
+</div>
+</section>
+
+<footer>
+<span id="footerText"></span>
+</footer>
+
+<script>
+fetch('content/site.json')
+.then(res => res.json())
+.then(data => {
+
+document.getElementById('logo').innerText = data.logo;
+
+document.getElementById('heroTitle').innerHTML = data.heroTitle;
+document.getElementById('heroText').innerText = data.heroText;
+document.getElementById('heroButton').innerText = data.heroButton;
+
+document.getElementById('serviceTitle').innerText = data.serviceTitle;
+document.getElementById('serviceDesc').innerText = data.serviceDesc;
+
+document.getElementById('card1Title').innerText = data.card1Title;
+document.getElementById('card1Text').innerText = data.card1Text;
+document.getElementById('card1Image').src = data.card1Image;
+
+document.getElementById('card2Title').innerText = data.card2Title;
+document.getElementById('card2Text').innerText = data.card2Text;
+document.getElementById('card2Image').src = data.card2Image;
+
+document.getElementById('card3Title').innerText = data.card3Title;
+document.getElementById('card3Text').innerText = data.card3Text;
+document.getElementById('card3Image').src = data.card3Image;
+
+document.getElementById('contactTitle').innerText = data.contactTitle;
+document.getElementById('contactText').innerText = data.contactText;
+
+document.getElementById('telegramLink').href = data.telegramLink;
+document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
+
+document.getElementById('kakaoLink').href = data.kakaoLink;
+document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
+
+document.getElementById('footerText').innerText = data.footerText;
+
+});
+</script>
+
+</body>
+</html>
