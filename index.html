@@ -418,51 +418,35 @@ fetch('content/site.json')
 .then(res => res.json())
 .then(data => {
 
-document.getElementById('logo').innerText = data.logo;
-
-if(data.heroImage) {
+// 1. 로고 및 배경 (디자인 설정 그룹)
+document.getElementById('logo').innerText = data.designConfig.logo;
+if(data.designConfig.heroImage) {
   document.querySelector('.hero').style.backgroundImage = 
-    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
+    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.designConfig.heroImage})`;
 }
 
-// 제목 글자 크기와 색상 실시간 적용 파트 추가됨
+// 2. 메인 제목 설정 그룹
 const titleEl = document.getElementById('heroTitle');
-titleEl.innerHTML = data.heroTitle;
+titleEl.innerHTML = data.heroTitleGroup.heroTitle;
+if(data.heroTitleGroup.heroTitleSize) titleEl.style.fontSize = data.heroTitleGroup.heroTitleSize + 'px';
+if(data.heroTitleGroup.heroTitleColor) titleEl.style.color = data.heroTitleGroup.heroTitleColor;
 
-if(data.heroTitleSize) {
-    titleEl.style.fontSize = data.heroTitleSize + 'px';
-}
-if(data.heroTitleColor) {
-    titleEl.style.color = data.heroTitleColor;
-} 
+// 3. 메인 설명 설정 그룹
+const textEl = document.getElementById('heroText');
+textEl.innerText = data.heroTextGroup.heroText;
+if(data.heroTextGroup.heroTextSize) textEl.style.fontSize = data.heroTextGroup.heroTextSize + 'px';
+if(data.heroTextGroup.heroTextColor) textEl.style.color = data.heroTextGroup.heroTextColor;
 
-document.getElementById('heroText').innerText = data.heroText;
+// 4. 연락처 설정 그룹
+document.getElementById('telegramLink').href = data.contactConfig.telegramLink;
+document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.contactConfig.telegramId;
+document.getElementById('kakaoLink').href = data.contactConfig.kakaoLink;
+document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.contactConfig.kakaoId;
+
+// 기존 나머지 단일 항목들
 document.getElementById('heroButton').innerText = data.heroButton;
-
 document.getElementById('serviceTitle').innerText = data.serviceTitle;
 document.getElementById('serviceDesc').innerText = data.serviceDesc;
-
-document.getElementById('card1Title').innerText = data.card1Title;
-document.getElementById('card1Text').innerText = data.card1Text;
-document.getElementById('card1Image').src = data.card1Image;
-
-document.getElementById('card2Title').innerText = data.card2Title;
-document.getElementById('card2Text').innerText = data.card2Text;
-document.getElementById('card2Image').src = data.card2Image;
-
-document.getElementById('card3Title').innerText = data.card3Title;
-document.getElementById('card3Text').innerText = data.card3Text;
-document.getElementById('card3Image').src = data.card3Image;
-
-document.getElementById('contactTitle').innerText = data.contactTitle;
-document.getElementById('contactText').innerText = data.contactText;
-
-document.getElementById('telegramLink').href = data.telegramLink;
-document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
-
-document.getElementById('kakaoLink').href = data.kakaoLink;
-document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
-
 document.getElementById('footerText').innerText = data.footerText;
 
 updateExchangeRates();
