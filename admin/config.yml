@@ -3,7 +3,7 @@ backend:
   repo: Pmangmoney1/my-new-site    # 네 GitHub 저장소
   branch: main                     # main 브랜치 사용
   auth_type: implicit              # 서버 없이 GitHub OAuth 사용
-  app_id: YOUR_GITHUB_CLIENT_ID    # GitHub OAuth 앱 Client ID 넣기
+  app_id: Ov23livKwyrS2Tegezz4    # GitHub OAuth 앱 Client ID 넣기
 
 media_folder: "uploads"
 public_folder: "/uploads"
