@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FEEL AGENCY</title>
+<title></title>
 
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
@@ -75,9 +75,7 @@ height:100vh;
 display:flex;
 align-items:center;
 text-align:center;
-background:
-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)),
-url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1974&auto=format&fit=crop');
+/* 초기 배경 이미지는 데이터를 불러오기 전까지 기본 검은색 배경으로 처리됩니다 */
 background-size:cover;
 background-position:center;
 }
@@ -283,7 +281,7 @@ padding:40px 25px;
 
 <header>
 <div class="container header-inner">
-<div class="logo" id="logo">FEEL AGENCY</div>
+<div class="logo" id="logo"></div>
 
 <nav>
 <a href="#">홈</a>
@@ -414,15 +412,18 @@ async function updateExchangeRates() {
   }
 }
 
-// 데이터를 불러올 때 캐시 방지(?t=시간값) 적용
+// 3. 캐시 방지 및 실시간 데이터 매칭
 fetch('content/site.json?t=' + new Date().getTime())
 .then(res => res.json())
 .then(data => {
 
-document.getElementById('logo').innerText = data.logo;
+if(data.logo) {
+    document.title = data.logo; // 탭 이름 업데이트
+    document.getElementById('logo').innerText = data.logo;
+}
 
 if(data.heroImage) {
-  // 배경을 밝게 투과시키기 위해 rgba 수치를 0.1, 0.2로 낮춤
+  // 배경 밝기 조절 (rgba 수치를 낮게 유지)
   document.querySelector('.hero').style.backgroundImage = 
     `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url(${data.heroImage})`;
 }
