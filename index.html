@@ -102,7 +102,7 @@ color:#d2d2d2;
 .hero-buttons{
 margin-top:40px;
 display:flex;
-justify(content:center;
+justify-content:center;
 gap:20px;
 flex-wrap:wrap;
 }
@@ -159,17 +159,17 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 1200px) {
-  .card img {
-    height: auto;
-    max-height: 180px;
-  }
+  .card img {
+    height: auto;
+    max-height: 180px;
+  }
 }
 
 .card-content{
@@ -185,32 +185,33 @@ margin-bottom:10px;
 color:#bdbdbd;
 }
 
+/* 환율 섹션 디자인 */
 .exchange-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 50px;
 }
 
 .exchange-card {
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 20px;
-    padding: 20px 10px;
-    text-align: center;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px 10px;
+    text-align: center;
 }
 
 .exchange-label {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 5px;
-    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .exchange-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #ffd700;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffd700;
 }
 
 .contact-box{
@@ -266,7 +267,7 @@ grid-template-columns:1fr;
 }
 
 .exchange-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 nav{
@@ -350,22 +351,22 @@ padding:40px 25px;
 <div class="container">
 
 <div class="exchange-container">
-    <div class="exchange-card">
-        <span class="exchange-label">1페소(PHP) 당 한화</span>
-        <div class="exchange-value" id="rateKrwPhp">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">1달러(USD) 당 한화</span>
-        <div class="exchange-value" id="rateKrwUsd">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">1위안(CNY) 당 한화</span>
-        <div class="exchange-value" id="rateKrwCny">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">1위안(CNY) 당 페소</span>
-        <div class="exchange-value" id="rateCnyPhp">--.--</div>
-    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">1페소(PHP) 당 한화</span>
+        <div class="exchange-value" id="rateKrwPhp">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">1달러(USD) 당 한화</span>
+        <div class="exchange-value" id="rateKrwUsd">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">1위안(CNY) 당 한화</span>
+        <div class="exchange-value" id="rateKrwCny">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">1위안(CNY) 당 페소</span>
+        <div class="exchange-value" id="rateCnyPhp">--.--</div>
+    </div>
 </div>
 
 <div class="contact-box">
@@ -394,84 +395,87 @@ KAKAO TALK
 </footer>
 
 <script>
+// 실시간 환율 API 함수
 async function updateExchangeRates() {
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
-    const data = await res.json();
-    const rates = data.rates;
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    const rates = data.rates;
 
-    const usdKrw = rates.KRW;
-    const usdPhp = rates.PHP;
-    const usdCny = rates.CNY;
+    const usdKrw = rates.KRW;
+    const usdPhp = rates.PHP;
+    const usdCny = rates.CNY;
 
-    document.getElementById('rateKrwPhp').innerText = (usdKrw / usdPhp).toFixed(2) + "원";
-    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString() + "원";
-    document.getElementById('rateKrwCny').innerText = (usdKrw / usdCny).toFixed(2) + "원";
-    document.getElementById('rateCnyPhp').innerText = (usdPhp / usdCny).toFixed(2) + " PHP";
-  } catch (e) {
-    console.error("Exchange rate error:", e);
-  }
+    document.getElementById('rateKrwPhp').innerText = (usdKrw / usdPhp).toFixed(2) + "원";
+    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString() + "원";
+    document.getElementById('rateKrwCny').innerText = (usdKrw / usdCny).toFixed(2) + "원";
+    document.getElementById('rateCnyPhp').innerText = (usdPhp / usdCny).toFixed(2) + " PHP";
+  } catch (e) {
+    console.error("Exchange rate error:", e);
+  }
 }
 
 fetch('content/site.json')
 .then(res => res.json())
 .then(data => {
 
-  // 데이터 주소를 원래대로(data.logo 등) 유지하여 기존 값 복구
-  document.getElementById('logo').innerText = data.logo;
+document.getElementById('logo').innerText = data.logo;
 
-  if(data.heroImage) {
-    document.querySelector('.hero').style.backgroundImage = 
-      `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
-  }
+// 배경화면 적용
+if(data.heroImage) {
+  document.querySelector('.hero').style.backgroundImage = 
+    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
+}
 
-  const titleEl = document.getElementById('heroTitle');
-  titleEl.innerHTML = data.heroTitle;
-  if(data.heroTitleSize) titleEl.style.fontSize = data.heroTitleSize + 'px';
-  if(data.heroTitleColor) titleEl.style.color = data.heroTitleColor;
+// 제목 스타일(크기, 색상) 실시간 적용
+const titleEl = document.getElementById('heroTitle');
+titleEl.innerHTML = data.heroTitle;
+if(data.heroTitleSize) titleEl.style.fontSize = data.heroTitleSize + 'px';
+if(data.heroTitleColor) titleEl.style.color = data.heroTitleColor;
 
-  document.getElementById('heroText').innerText = data.heroText;
-  document.getElementById('heroButton').innerText = data.heroButton;
-  document.getElementById('serviceTitle').innerText = data.serviceTitle;
-  document.getElementById('serviceDesc').innerText = data.serviceDesc;
+document.getElementById('heroText').innerText = data.heroText;
+document.getElementById('heroButton').innerText = data.heroButton;
+document.getElementById('serviceTitle').innerText = data.serviceTitle;
+document.getElementById('serviceDesc').innerText = data.serviceDesc;
 
-  document.getElementById('card1Title').innerText = data.card1Title;
-  document.getElementById('card1Text').innerText = data.card1Text;
-  document.getElementById('card1Image').src = data.card1Image;
+document.getElementById('card1Title').innerText = data.card1Title;
+document.getElementById('card1Text').innerText = data.card1Text;
+document.getElementById('card1Image').src = data.card1Image;
 
-  document.getElementById('card2Title').innerText = data.card2Title;
-  document.getElementById('card2Text').innerText = data.card2Text;
-  document.getElementById('card2Image').src = data.card2Image;
+document.getElementById('card2Title').innerText = data.card2Title;
+document.getElementById('card2Text').innerText = data.card2Text;
+document.getElementById('card2Image').src = data.card2Image;
 
-  document.getElementById('card3Title').innerText = data.card3Title;
-  document.getElementById('card3Text').innerText = data.card3Text;
-  document.getElementById('card3Image').src = data.card3Image;
+document.getElementById('card3Title').innerText = data.card3Title;
+document.getElementById('card3Text').innerText = data.card3Text;
+document.getElementById('card3Image').src = data.card3Image;
 
-  document.getElementById('contactTitle').innerText = data.contactTitle;
-  document.getElementById('contactText').innerText = data.contactText;
+document.getElementById('contactTitle').innerText = data.contactTitle;
+document.getElementById('contactText').innerText = data.contactText;
 
-  document.getElementById('telegramLink').href = data.telegramLink;
-  document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
-  document.getElementById('kakaoLink').href = data.kakaoLink;
-  document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
+document.getElementById('telegramLink').href = data.telegramLink;
+document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
+document.getElementById('kakaoLink').href = data.kakaoLink;
+document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
 
-  document.getElementById('footerText').innerText = data.footerText;
+document.getElementById('footerText').innerText = data.footerText;
 
-  updateExchangeRates();
+updateExchangeRates();
 });
 </script>
 
 <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
 </script>
 
 </body>
 </html>
+다른거 건들지말고  해당코드에서 니가말한것만 수정해서 전체코드줘  빨리좀 하자 제발
