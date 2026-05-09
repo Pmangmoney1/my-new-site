@@ -13,38 +13,45 @@ collections:
         name: "main"
         file: "content/site.json"
         fields:
-          - {label: "로고", name: "logo", widget: "string"}
-          - {label: "메인 배경 이미지", name: "heroImage", widget: "image"}
-          - {label: "메인 제목", name: "heroTitle", widget: "string"}
-          # 메인 제목 글자 크기 및 색상 조절 위젯 추가
-          - {label: "제목 글자 크기 (px)", name: "heroTitleSize", widget: "number", default: 72, min: 20, max: 120}
-          - {label: "제목 색상", name: "heroTitleColor", widget: "color", default: "#ffffff"}
-          
-          - {label: "메인 설명", name: "heroText", widget: "text"}
-          - {label: "메인 버튼", name: "heroButton", widget: "string"}
+          # 로고 및 배경 그룹
+          - label: "기본 디자인 설정"
+            name: "designConfig"
+            widget: "object"
+            fields:
+              - {label: "로고 텍스트", name: "logo", widget: "string"}
+              - {label: "메인 배경 이미지", name: "heroImage", widget: "image"}
 
-          - {label: "서비스 제목", name: "serviceTitle", widget: "string"}
-          - {label: "서비스 설명", name: "serviceDesc", widget: "text"}
+          # 메인 제목 그룹
+          - label: "메인 제목 설정"
+            name: "heroTitleGroup"
+            widget: "object"
+            fields:
+              - {label: "제목 내용", name: "heroTitle", widget: "string"}
+              - {label: "제목 크기(px)", name: "heroTitleSize", widget: "number", default: 72}
+              - {label: "제목 색상", name: "heroTitleColor", widget: "color", default: "#ffffff"}
 
-          - {label: "카드1 제목", name: "card1Title", widget: "string"}
-          - {label: "카드1 설명", name: "card1Text", widget: "text"}
-          - {label: "카드1 이미지", name: "card1Image", widget: "image"}
+          # 메인 설명 그룹
+          - label: "메인 설명 설정"
+            name: "heroTextGroup"
+            widget: "object"
+            fields:
+              - {label: "설명 내용", name: "heroText", widget: "text"}
+              - {label: "설명 크기(px)", name: "heroTextSize", widget: "number", default: 20}
+              - {label: "설명 색상", name: "heroTextColor", widget: "color", default: "#d2d2d2"}
 
-          - {label: "카드2 제목", name: "card2Title", widget: "string"}
-          - {label: "카드2 설명", name: "card2Text", widget: "text"}
-          - {label: "카드2 이미지", name: "card2Image", widget: "image"}
+          # 하단 섹션 및 버튼
+          - {label: "메인 버튼 문구", name: "heroButton", widget: "string"}
+          - {label: "서비스 섹션 제목", name: "serviceTitle", widget: "string"}
+          - {label: "서비스 섹션 설명", name: "serviceDesc", widget: "text"}
 
-          - {label: "카드3 제목", name: "card3Title", widget: "string"}
-          - {label: "카드3 설명", name: "card3Text", widget: "text"}
-          - {label: "카드3 이미지", name: "card3Image", widget: "image"}
-
-          - {label: "문의 제목", name: "contactTitle", widget: "string"}
-          - {label: "문의 설명", name: "contactText", widget: "text"}
-
-          - {label: "텔레그램 링크", name: "telegramLink", widget: "string"}
-          - {label: "텔레그램 아이디", name: "telegramId", widget: "string"}
-
-          - {label: "카카오 링크", name: "kakaoLink", widget: "string"}
-          - {label: "카카오 아이디", name: "kakaoId", widget: "string"}
+          # 연락처 정보 (텔레그램/카카오)
+          - label: "연락처 및 링크 설정"
+            name: "contactConfig"
+            widget: "object"
+            fields:
+              - {label: "텔레그램 링크", name: "telegramLink", widget: "string"}
+              - {label: "텔레그램 ID", name: "telegramId", widget: "string"}
+              - {label: "카카오 링크", name: "kakaoLink", widget: "string"}
+              - {label: "카카오 ID", name: "kakaoId", widget: "string"}
 
           - {label: "푸터 문구", name: "footerText", widget: "string"}
