@@ -102,7 +102,7 @@ color:#d2d2d2;
 .hero-buttons{
 margin-top:40px;
 display:flex;
-justify-content:center;
+justify(content:center;
 gap:20px;
 flex-wrap:wrap;
 }
@@ -185,7 +185,6 @@ margin-bottom:10px;
 color:#bdbdbd;
 }
 
-/* 환율 섹션 디자인 */
 .exchange-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -395,7 +394,6 @@ KAKAO TALK
 </footer>
 
 <script>
-// 실시간 환율 API 함수
 async function updateExchangeRates() {
   try {
     const res = await fetch('https://open.er-api.com/v6/latest/USD');
@@ -419,48 +417,47 @@ fetch('content/site.json')
 .then(res => res.json())
 .then(data => {
 
-document.getElementById('logo').innerText = data.logo;
+  // 데이터 주소를 원래대로(data.logo 등) 유지하여 기존 값 복구
+  document.getElementById('logo').innerText = data.logo;
 
-// 배경화면 적용
-if(data.heroImage) {
-  document.querySelector('.hero').style.backgroundImage = 
-    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
-}
+  if(data.heroImage) {
+    document.querySelector('.hero').style.backgroundImage = 
+      `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
+  }
 
-// 제목 스타일(크기, 색상) 실시간 적용
-const titleEl = document.getElementById('heroTitle');
-titleEl.innerHTML = data.heroTitle;
-if(data.heroTitleSize) titleEl.style.fontSize = data.heroTitleSize + 'px';
-if(data.heroTitleColor) titleEl.style.color = data.heroTitleColor;
+  const titleEl = document.getElementById('heroTitle');
+  titleEl.innerHTML = data.heroTitle;
+  if(data.heroTitleSize) titleEl.style.fontSize = data.heroTitleSize + 'px';
+  if(data.heroTitleColor) titleEl.style.color = data.heroTitleColor;
 
-document.getElementById('heroText').innerText = data.heroText;
-document.getElementById('heroButton').innerText = data.heroButton;
-document.getElementById('serviceTitle').innerText = data.serviceTitle;
-document.getElementById('serviceDesc').innerText = data.serviceDesc;
+  document.getElementById('heroText').innerText = data.heroText;
+  document.getElementById('heroButton').innerText = data.heroButton;
+  document.getElementById('serviceTitle').innerText = data.serviceTitle;
+  document.getElementById('serviceDesc').innerText = data.serviceDesc;
 
-document.getElementById('card1Title').innerText = data.card1Title;
-document.getElementById('card1Text').innerText = data.card1Text;
-document.getElementById('card1Image').src = data.card1Image;
+  document.getElementById('card1Title').innerText = data.card1Title;
+  document.getElementById('card1Text').innerText = data.card1Text;
+  document.getElementById('card1Image').src = data.card1Image;
 
-document.getElementById('card2Title').innerText = data.card2Title;
-document.getElementById('card2Text').innerText = data.card2Text;
-document.getElementById('card2Image').src = data.card2Image;
+  document.getElementById('card2Title').innerText = data.card2Title;
+  document.getElementById('card2Text').innerText = data.card2Text;
+  document.getElementById('card2Image').src = data.card2Image;
 
-document.getElementById('card3Title').innerText = data.card3Title;
-document.getElementById('card3Text').innerText = data.card3Text;
-document.getElementById('card3Image').src = data.card3Image;
+  document.getElementById('card3Title').innerText = data.card3Title;
+  document.getElementById('card3Text').innerText = data.card3Text;
+  document.getElementById('card3Image').src = data.card3Image;
 
-document.getElementById('contactTitle').innerText = data.contactTitle;
-document.getElementById('contactText').innerText = data.contactText;
+  document.getElementById('contactTitle').innerText = data.contactTitle;
+  document.getElementById('contactText').innerText = data.contactText;
 
-document.getElementById('telegramLink').href = data.telegramLink;
-document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
-document.getElementById('kakaoLink').href = data.kakaoLink;
-document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
+  document.getElementById('telegramLink').href = data.telegramLink;
+  document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
+  document.getElementById('kakaoLink').href = data.kakaoLink;
+  document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
 
-document.getElementById('footerText').innerText = data.footerText;
+  document.getElementById('footerText').innerText = data.footerText;
 
-updateExchangeRates();
+  updateExchangeRates();
 });
 </script>
 
