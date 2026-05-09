@@ -9,21 +9,7 @@
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // 1. 서버에서 온 신호를 감지하고 로컬 스토리지에 열쇠를 저장하는 로직
-    window.addEventListener("message", (event) => {
-      if (event.data && event.data.startsWith("authorization:github:success:")) {
-        const content = event.data.replace("authorization:github:success:", "");
-        const data = JSON.parse(content);
-        
-        // Decap CMS가 인식할 수 있도록 브라우저에 열쇠를 강제로 저장합니다.
-        localStorage.setItem("decap-cms-user", JSON.stringify(data));
-        
-        // 저장 후 페이지를 새로고침하면 CMS가 로그인된 것으로 판단하고 어드민을 띄웁니다.
-        setTimeout(() => { window.location.reload(); }, 200);
-      }
-    }, false);
-
-    // 2. 관리자 페이지 이미지 미리보기 스타일 (기존 유지)
+    // 관리자 페이지 이미지 미리보기 스타일 (이것만 남깁니다)
     CMS.registerPreviewStyle(`
       img {
         max-width: 100% !important;
