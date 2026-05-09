@@ -1,5 +1,7 @@
 {
+  "heroImage": "/uploads/gemini_generated_image_5k5l655k5l655k5l.png",
   "serviceTitle": "VIP SERVICE",
+  "heroTitleColor": "#e9dcdc",
   "serviceDesc": "JUJU 에이전시 프리미엄 카지노 서비스 테스트",
   "heroText": "필리핀 카지노 VIP 서비스 및 프리미엄 여행 지원 서비스",
   "footerText": "@asim_ace ",
@@ -20,5 +22,6 @@
   "telegramId": "testt",
   "kakaoLink": "#",
   "kakaoId": "test",
-  "heroTitle": "PREMIUM <br> CASINO VIP SERVICE"
+  "heroTitle": "PREMIUM <br> CASINO VIP SERVICE",
+  "heroTitleSize": 20
 }
