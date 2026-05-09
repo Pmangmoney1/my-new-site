@@ -9,41 +9,42 @@ collections:
   - name: "site"
     label: "사이트 설정"
     files:
-      - label: "전체 페이지 편집"
+      - label: "메인 설정"
         name: "main"
         file: "content/site.json"
         fields:
-          # 시각적인 구분선을 'label'로만 처리하여 데이터 손실 방지
-          - {label: "━━━━━━━━━━━━━━━━━━━━", name: "div1", widget: "hidden", default: ""}
-          - {label: "🚩 [영역 1] 상단 및 배경 설정", name: "label1", widget: "hidden", default: ""}
-          - {label: "로고 텍스트", name: "logo", widget: "string"}
+          - {label: "로고", name: "logo", widget: "string"}
           - {label: "메인 배경 이미지", name: "heroImage", widget: "image"}
-          
-          - {label: "━━━━━━━━━━━━━━━━━━━━", name: "div2", widget: "hidden", default: ""}
-          - {label: "📝 [영역 2] 메인 문구 및 스타일", name: "label2", widget: "hidden", default: ""}
-          - {label: "제목 내용", name: "heroTitle", widget: "string"}
-          - {label: "제목 크기(px)", name: "heroTitleSize", widget: "number", default: 72}
+          - {label: "메인 제목", name: "heroTitle", widget: "string"}
+          # 메인 제목 글자 크기 및 색상 조절 위젯 추가
+          - {label: "제목 글자 크기 (px)", name: "heroTitleSize", widget: "number", default: 72, min: 20, max: 120}
           - {label: "제목 색상", name: "heroTitleColor", widget: "color", default: "#ffffff"}
-          - {label: "설명 내용", name: "heroText", widget: "text"}
-          - {label: "설명 크기(px)", name: "heroTextSize", widget: "number", default: 20}
-          - {label: "설명 색상", name: "heroTextColor", widget: "color", default: "#d2d2d2"}
+          
+          - {label: "메인 설명", name: "heroText", widget: "text"}
+          - {label: "메인 버튼", name: "heroButton", widget: "string"}
 
-          - {label: "━━━━━━━━━━━━━━━━━━━━", name: "div3", widget: "hidden", default: ""}
-          - {label: "💳 [영역 3] 서비스 카드 정보", name: "label3", widget: "hidden", default: ""}
+          - {label: "서비스 제목", name: "serviceTitle", widget: "string"}
+          - {label: "서비스 설명", name: "serviceDesc", widget: "text"}
+
           - {label: "카드1 제목", name: "card1Title", widget: "string"}
-          - {label: "카드1 내용", name: "card1Text", widget: "text"}
+          - {label: "카드1 설명", name: "card1Text", widget: "text"}
           - {label: "카드1 이미지", name: "card1Image", widget: "image"}
+
           - {label: "카드2 제목", name: "card2Title", widget: "string"}
-          - {label: "카드2 내용", name: "card2Text", widget: "text"}
+          - {label: "카드2 설명", name: "card2Text", widget: "text"}
           - {label: "카드2 이미지", name: "card2Image", widget: "image"}
+
           - {label: "카드3 제목", name: "card3Title", widget: "string"}
-          - {label: "카드3 내용", name: "card3Text", widget: "text"}
+          - {label: "카드3 설명", name: "card3Text", widget: "text"}
           - {label: "카드3 이미지", name: "card3Image", widget: "image"}
 
-          - {label: "━━━━━━━━━━━━━━━━━━━━", name: "div4", widget: "hidden", default: ""}
-          - {label: "📞 [영역 4] 연락처 설정", name: "label4", widget: "hidden", default: ""}
-          - {label: "텔레그램 ID", name: "telegramId", widget: "string"}
+          - {label: "문의 제목", name: "contactTitle", widget: "string"}
+          - {label: "문의 설명", name: "contactText", widget: "text"}
+
           - {label: "텔레그램 링크", name: "telegramLink", widget: "string"}
-          - {label: "카카오 ID", name: "kakaoId", widget: "string"}
+          - {label: "텔레그램 아이디", name: "telegramId", widget: "string"}
+
           - {label: "카카오 링크", name: "kakaoLink", widget: "string"}
+          - {label: "카카오 아이디", name: "kakaoId", widget: "string"}
+
           - {label: "푸터 문구", name: "footerText", widget: "string"}
