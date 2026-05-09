@@ -159,17 +159,17 @@ box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 1200px) {
-  .card img {
-    height: auto;
-    max-height: 180px;
-  }
+  .card img {
+    height: auto;
+    max-height: 180px;
+  }
 }
 
 .card-content{
@@ -186,31 +186,31 @@ color:#bdbdbd;
 }
 
 .exchange-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin-bottom: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 50px;
 }
 
 .exchange-card {
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 20px;
-    padding: 20px 10px;
-    text-align: center;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px 10px;
+    text-align: center;
 }
 
 .exchange-label {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 5px;
-    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .exchange-value {
-    font-size: 18px;
-    font-weight: 700;
-    color: #ffd700;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffd700;
 }
 
 .contact-box{
@@ -266,7 +266,7 @@ grid-template-columns:1fr;
 }
 
 .exchange-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
 }
 
 nav{
@@ -350,22 +350,22 @@ padding:40px 25px;
 <div class="container">
 
 <div class="exchange-container">
-    <div class="exchange-card">
-        <span class="exchange-label">KRW / PHP (페소)</span>
-        <div class="exchange-value" id="rateKrwPhp">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">KRW / USD (달러)</span>
-        <div class="exchange-value" id="rateKrwUsd">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">KRW / CNY (위안)</span>
-        <div class="exchange-value" id="rateKrwCny">--.--</div>
-    </div>
-    <div class="exchange-card">
-        <span class="exchange-label">CNY / PHP (위안/페소)</span>
-        <div class="exchange-value" id="rateCnyPhp">--.--</div>
-    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">KRW / PHP (페소)</span>
+        <div class="exchange-value" id="rateKrwPhp">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">KRW / USD (달러)</span>
+        <div class="exchange-value" id="rateKrwUsd">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">KRW / CNY (위안)</span>
+        <div class="exchange-value" id="rateKrwCny">--.--</div>
+    </div>
+    <div class="exchange-card">
+        <span class="exchange-label">CNY / PHP (위안/페소)</span>
+        <div class="exchange-value" id="rateCnyPhp">--.--</div>
+    </div>
 </div>
 
 <div class="contact-box">
@@ -395,56 +395,50 @@ KAKAO TALK
 
 <script>
 async function updateExchangeRates() {
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
-    const data = await res.json();
-    const rates = data.rates;
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    const rates = data.rates;
 
-    const usdKrw = rates.KRW;
-    const usdPhp = rates.PHP;
-    const usdCny = rates.CNY;
+    const usdKrw = rates.KRW;
+    const usdPhp = rates.PHP;
+    const usdCny = rates.CNY;
 
-    document.getElementById('rateKrwPhp').innerText = (usdKrw / usdPhp).toFixed(2) + "원";
-    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString() + "원";
-    document.getElementById('rateKrwCny').innerText = (usdKrw / usdCny).toFixed(2) + "원";
-    document.getElementById('rateCnyPhp').innerText = (usdPhp / usdCny).toFixed(2) + " PHP";
+    document.getElementById('rateKrwPhp').innerText = (usdKrw / usdPhp).toFixed(2) + "원";
+    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString() + "원";
+    document.getElementById('rateKrwCny').innerText = (usdKrw / usdCny).toFixed(2) + "원";
+    document.getElementById('rateCnyPhp').innerText = (usdPhp / usdCny).toFixed(2) + " PHP";
 
-  } catch (e) {
-    console.error("Exchange rate error:", e);
-  }
+  } catch (e) {
+    console.error("Exchange rate error:", e);
+  }
 }
 
 fetch('content/site.json')
 .then(res => res.json())
 .then(data => {
 
-// 1. 로고 및 배경 (디자인 설정 그룹)
-document.getElementById('logo').innerText = data.designConfig.logo;
-if(data.designConfig.heroImage) {
-  document.querySelector('.hero').style.backgroundImage = 
-    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.designConfig.heroImage})`;
+document.getElementById('logo').innerText = data.logo;
+
+if(data.heroImage) {
+  document.querySelector('.hero').style.backgroundImage = 
+    `linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)), url(${data.heroImage})`;
 }
 
-// 2. 메인 제목 설정 그룹
+// 제목 글자 크기와 색상 실시간 적용 파트 추가됨
 const titleEl = document.getElementById('heroTitle');
-titleEl.innerHTML = data.heroTitleGroup.heroTitle;
-if(data.heroTitleGroup.heroTitleSize) titleEl.style.fontSize = data.heroTitleGroup.heroTitleSize + 'px';
-if(data.heroTitleGroup.heroTitleColor) titleEl.style.color = data.heroTitleGroup.heroTitleColor;
+titleEl.innerHTML = data.heroTitle;
 
-// 3. 메인 설명 설정 그룹
-const textEl = document.getElementById('heroText');
-textEl.innerText = data.heroTextGroup.heroText;
-if(data.heroTextGroup.heroTextSize) textEl.style.fontSize = data.heroTextGroup.heroTextSize + 'px';
-if(data.heroTextGroup.heroTextColor) textEl.style.color = data.heroTextGroup.heroTextColor;
+if(data.heroTitleSize) {
+    titleEl.style.fontSize = data.heroTitleSize + 'px';
+}
+if(data.heroTitleColor) {
+    titleEl.style.color = data.heroTitleColor;
+} 
 
-// 4. 연락처 설정 그룹
-document.getElementById('telegramLink').href = data.contactConfig.telegramLink;
-document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.contactConfig.telegramId;
-document.getElementById('kakaoLink').href = data.contactConfig.kakaoLink;
-document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.contactConfig.kakaoId;
-
-// 기존 나머지 단일 항목들
+document.getElementById('heroText').innerText = data.heroText;
 document.getElementById('heroButton').innerText = data.heroButton;
+
 document.getElementById('serviceTitle').innerText = data.serviceTitle;
 document.getElementById('serviceDesc').innerText = data.serviceDesc;
 
@@ -463,6 +457,12 @@ document.getElementById('card3Image').src = data.card3Image;
 document.getElementById('contactTitle').innerText = data.contactTitle;
 document.getElementById('contactText').innerText = data.contactText;
 
+document.getElementById('telegramLink').href = data.telegramLink;
+document.getElementById('telegramLink').innerHTML = 'TELEGRAM<br>' + data.telegramId;
+
+document.getElementById('kakaoLink').href = data.kakaoLink;
+document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId;
+
 document.getElementById('footerText').innerText = data.footerText;
 
 updateExchangeRates();
@@ -471,16 +471,18 @@ updateExchangeRates();
 </script>
 
 <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
 </script>
 
 </body>
 </html>
+
+이코드에서 다른거 건들지말고 딱 그거만 적용해서 전체코드 부탁할게
