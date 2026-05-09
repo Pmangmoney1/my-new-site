@@ -1,12 +1,13 @@
-// [callback.js] 깃허브 로그인이 완료된 후 돌아왔을 때 실행되는 코드
 export async function onRequestGet(context) {
   const { request, env } = context;
   const url = new URL(request.url);
-  
-  // 1. 깃허브에서 보내준 임시 코드를 확인합니다.
   const code = url.searchParams.get("code");
 
-  // 2. 이 임시 코드를 깃허브 본사에 보내서 "진짜 열쇠(Token)"로 바꿉니다.
+  if (!code) {
+    return new Response("임시 코드가 없습니다.", { status: 400 });
+  }
+
+  // 깃허브 본사에 열쇠(Token) 요청
   const response = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: {
@@ -14,25 +15,36 @@ export async function onRequestGet(context) {
       "accept": "application/json",
     },
     body: JSON.stringify({
-      client_id: env.GITHUB_CLIENT_ID,     // 아까 등록한 Client ID
-      client_secret: env.GITHUB_CLIENT_SECRET, // 아까 등록한 Client Secret
-      code, // 임시 코드
+      client_id: env.GITHUB_CLIENT_ID,
+      client_secret: env.GITHUB_CLIENT_SECRET,
+      code,
     }),
   });
 
-  // 3. 깃허브 본사에서 보내준 열쇠 데이터를 읽습니다.
   const result = await response.json();
 
-  // 4. 이 열쇠를 웹사이트 관리자(Decap CMS) 창에 전달하고 창을 닫는 자바스크립트를 실행합니다.
+  if (result.error) {
+    return new Response(`인증 실패: ${result.error_description}`, { status: 400 });
+  }
+
+  // 관리자 창(Decap CMS)에 열쇠 전달 후 팝업 닫기
+  const token = result.access_token;
+  const responseData = JSON.stringify({
+    token: token,
+    provider: 'github'
+  });
+
   return new Response(
     `<html><body><script>
     (function() {
       var target = window.opener || window.parent;
-      // 관리자 화면에 "로그인 성공! 여기 열쇠(token)가 있습니다"라고 소리치는 부분입니다.
-      target.postMessage('authorization:github:success:${JSON.stringify({
-        token: result.access_token,
-        provider: 'github'
-      })}', "*");
+      if (target) {
+        // 인증 성공 신호를 보냅니다.
+        target.postMessage('authorization:github:success:${responseData}', "*");
+        window.close(); // 신호 전송 후 창 닫기
+      } else {
+        document.body.innerHTML = "관리자 창을 찾을 수 없습니다. 다시 시도해 주세요.";
+      }
     })();
     </script></body></html>`,
     { headers: { "content-type": "text/html" } }
