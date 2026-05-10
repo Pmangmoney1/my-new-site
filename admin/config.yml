@@ -1,6 +1,7 @@
 backend:
-  name: local
-  local_backend: true
+  name: proxy
+  proxy_url: "/api/cms"
+  branch: main
 
 media_folder: "uploads"
 public_folder: "/uploads"
