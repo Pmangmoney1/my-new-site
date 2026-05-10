@@ -2,7 +2,7 @@
 // 🔐 frelyn 관리자 계정 설정
 // ===============================
 const ADMIN_ID = "juju";     // 원하는 ID
-const ADMIN_PW = "philjuju7000";      // 원하는 PW
+const ADMIN_PW = "juju123";      // 원하는 PW
 const JWT_SECRET = "supersecretkey"; // 나중에 env로 이동 가능
 
 // ===============================
