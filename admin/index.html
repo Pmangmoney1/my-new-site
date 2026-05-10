@@ -610,35 +610,58 @@ async function loadData(){
 }
 
 function renderPreview(){
-  heroImagePreview.src=data.heroImage||"";
-  card1ImagePreview.src=data.card1Image||"";
-  card2ImagePreview.src=data.card2Image||"";
-  card3ImagePreview.src=data.card3Image||"";
+  // 이미지 요소들을 안전하게 참조하기 위해 getElementById 사용
+  const hPreview = document.getElementById("heroImagePreview");
+  const c1Preview = document.getElementById("card1ImagePreview");
+  const c2Preview = document.getElementById("card2ImagePreview");
+  const c3Preview = document.getElementById("card3ImagePreview");
 
-  previewHeroBg.style.backgroundImage=`url('${data.heroImage}')`;
-  previewLogo.innerHTML=data.logo||"";
-  previewHeroTitle.innerHTML=data.heroTitle||"";
-  previewHeroTitle.style.color=data.heroTitleColor||"#fff";
-  previewHeroText.innerHTML=data.heroText||"";
-  previewHeroButton.innerHTML=data.heroButton||"";
-  previewServiceTitle.innerHTML=data.serviceTitle||"";
-  previewServiceDesc.innerHTML=data.serviceDesc||"";
-  previewCard1Image.src=data.card1Image||"";
-  previewCard1Title.innerHTML=data.card1Title||"";
-  previewCard1Text.innerHTML=data.card1Text||"";
-  previewCard2Image.src=data.card2Image||"";
-  previewCard2Title.innerHTML=data.card2Title||"";
-  previewCard2Text.innerHTML=data.card2Text||"";
-  previewCard3Image.src=data.card3Image||"";
-  previewCard3Title.innerHTML=data.card3Title||"";
-  previewCard3Text.innerHTML=data.card3Text||"";
-  previewContactTitle.innerHTML=data.contactTitle||"";
-  previewContactText.innerHTML=data.contactText||"";
-  previewTelegram.href=data.telegramLink||"#";
-  previewTelegram.innerHTML=data.telegramId||"Telegram";
-  previewKakao.href=data.kakaoLink||"#";
-  previewKakao.innerHTML=data.kakaoId||"Kakao";
-  previewFooter.innerHTML=data.footerText||"";
+  if(hPreview) hPreview.src = data.heroImage || "";
+  if(c1Preview) c1Preview.src = data.card1Image || "";
+  if(c2Preview) c2Preview.src = data.card2Image || "";
+  if(c3Preview) c3Preview.src = data.card3Image || "";
+
+  if(document.getElementById("previewHeroBg")) {
+    document.getElementById("previewHeroBg").style.backgroundImage = `url('${data.heroImage}')`;
+  }
+  
+  if(document.getElementById("previewLogo")) document.getElementById("previewLogo").innerHTML = data.logo || "";
+  if(document.getElementById("previewHeroTitle")) {
+    document.getElementById("previewHeroTitle").innerHTML = data.heroTitle || "";
+    document.getElementById("previewHeroTitle").style.color = data.heroTitleColor || "#fff";
+    // 누락되었던 제목 크기 반영 코드 추가
+    document.getElementById("previewHeroTitle").style.fontSize = (data.heroTitleSize || 40) + "px";
+  }
+  
+  if(document.getElementById("previewHeroText")) document.getElementById("previewHeroText").innerHTML = data.heroText || "";
+  if(document.getElementById("previewHeroButton")) document.getElementById("previewHeroButton").innerHTML = data.heroButton || "";
+  if(document.getElementById("previewServiceTitle")) document.getElementById("previewServiceTitle").innerHTML = data.serviceTitle || "";
+  if(document.getElementById("previewServiceDesc")) document.getElementById("previewServiceDesc").innerHTML = data.serviceDesc || "";
+  
+  if(document.getElementById("previewCard1Image")) document.getElementById("previewCard1Image").src = data.card1Image || "";
+  if(document.getElementById("previewCard1Title")) document.getElementById("previewCard1Title").innerHTML = data.card1Title || "";
+  if(document.getElementById("previewCard1Text")) document.getElementById("previewCard1Text").innerHTML = data.card1Text || "";
+  
+  if(document.getElementById("previewCard2Image")) document.getElementById("previewCard2Image").src = data.card2Image || "";
+  if(document.getElementById("previewCard2Title")) document.getElementById("previewCard2Title").innerHTML = data.card2Title || "";
+  if(document.getElementById("previewCard2Text")) document.getElementById("previewCard2Text").innerHTML = data.card2Text || "";
+  
+  if(document.getElementById("previewCard3Image")) document.getElementById("previewCard3Image").src = data.card3Image || "";
+  if(document.getElementById("previewCard3Title")) document.getElementById("previewCard3Title").innerHTML = data.card3Title || "";
+  if(document.getElementById("previewCard3Text")) document.getElementById("previewCard3Text").innerHTML = data.card3Text || "";
+  
+  if(document.getElementById("previewContactTitle")) document.getElementById("previewContactTitle").innerHTML = data.contactTitle || "";
+  if(document.getElementById("previewContactText")) document.getElementById("previewContactText").innerHTML = data.contactText || "";
+  
+  if(document.getElementById("previewTelegram")) {
+    document.getElementById("previewTelegram").href = data.telegramLink || "#";
+    document.getElementById("previewTelegram").innerHTML = data.telegramId || "Telegram";
+  }
+  if(document.getElementById("previewKakao")) {
+    document.getElementById("previewKakao").href = data.kakaoLink || "#";
+    document.getElementById("previewKakao").innerHTML = data.kakaoId || "Kakao";
+  }
+  if(document.getElementById("previewFooter")) document.getElementById("previewFooter").innerHTML = data.footerText || "";
 }
 
 fields.forEach(id=>{
