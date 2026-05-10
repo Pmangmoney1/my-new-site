@@ -2,35 +2,103 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager</title>
+  <title>관리자 페이지</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    h2 { margin-top: 40px; }
+    input, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; }
+    img { max-width: 200px; display: block; margin: 10px 0; }
+    button { padding: 12px 20px; font-size: 16px; cursor: pointer; }
+  </style>
 </head>
 <body>
 
-  <!-- 🔐 로그인 체크 -->
-  <script>
-    const token = localStorage.getItem("token");
-    if (!token) {
-      location.href = "/login/";
-    }
-  </script>
+<h1>사이트 설정 관리자</h1>
 
-  <!-- 📌 Decap CMS 로딩 -->
-  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+<div id="form"></div>
 
-  <!-- 🖼 이미지 미리보기 스타일 유지 -->
-  <script>
-    CMS.registerPreviewStyle(`
-      img {
-        max-width: 100% !important;
-        max-height: 200px !important; 
-        object-fit: contain !important;
-        display: block;
-        margin: 10px 0;
-        border: 1px solid #ddd;
+<button id="saveBtn">저장하기</button>
+
+<script>
+  // JSON 구조 정의
+  const fields = [
+    { label: "로고 텍스트", key: "logo", type: "text" },
+    { label: "메인 배경 이미지", key: "heroImage", type: "image" },
+    { label: "메인 제목", key: "heroTitle", type: "text" },
+    { label: "제목 글자 크기", key: "heroTitleSize", type: "number" },
+    { label: "제목 색상", key: "heroTitleColor", type: "color" },
+    { label: "메인 설명", key: "heroText", type: "textarea" },
+    { label: "메인 버튼 텍스트", key: "heroButton", type: "text" },
+
+    { label: "서비스 제목", key: "serviceTitle", type: "text" },
+    { label: "서비스 설명", key: "serviceDesc", type: "textarea" },
+
+    { label: "카드1 제목", key: "card1Title", type: "text" },
+    { label: "카드1 설명", key: "card1Text", type: "textarea" },
+    { label: "카드1 이미지", key: "card1Image", type: "image" },
+
+    { label: "카드2 제목", key: "card2Title", type: "text" },
+    { label: "카드2 설명", key: "card2Text", type: "textarea" },
+    { label: "카드2 이미지", key: "card2Image", type: "image" },
+
+    { label: "카드3 제목", key: "card3Title", type: "text" },
+    { label: "카드3 설명", key: "card3Text", type: "textarea" },
+    { label: "카드3 이미지", key: "card3Image", type: "image" },
+
+    { label: "문의 제목", key: "contactTitle", type: "text" },
+    { label: "문의 설명", key: "contactText", type: "textarea" },
+
+    { label: "텔레그램 링크", key: "telegramLink", type: "text" },
+    { label: "텔레그램 아이디", key: "telegramId", type: "text" },
+
+    { label: "카카오 링크", key: "kakaoLink", type: "text" },
+    { label: "카카오 아이디", key: "kakaoId", type: "text" },
+
+    { label: "푸터 문구", key: "footerText", type: "text" }
+  ];
+
+  let data = {};
+
+  async function loadData() {
+    const res = await fetch("/content/site.json");
+    data = await res.json();
+
+    const form = document.getElementById("form");
+    form.innerHTML = "";
+
+    fields.forEach(f => {
+      const value = data[f.key] || "";
+      let html = `<h2>${f.label}</h2>`;
+
+      if (f.type === "textarea") {
+        html += `<textarea id="${f.key}">${value}</textarea>`;
+      } else if (f.type === "image") {
+        html += `<img src="${value}" />`;
+        html += `<input id="${f.key}" value="${value}" />`;
+      } else {
+        html += `<input id="${f.key}" type="${f.type}" value="${value}" />`;
       }
-    `, { raw: true });
-  </script>
+
+      form.innerHTML += html;
+    });
+  }
+
+  document.getElementById("saveBtn").onclick = async () => {
+    fields.forEach(f => {
+      data[f.key] = document.getElementById(f.key).value;
+    });
+
+    const res = await fetch("/api/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    alert("저장 완료!");
+  };
+
+  loadData();
+</script>
 
 </body>
 </html>
