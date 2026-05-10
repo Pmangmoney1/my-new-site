@@ -16,8 +16,9 @@
       const id = document.getElementById("id").value;
       const pw = document.getElementById("pw").value;
 
-      const res = await fetch("/functions/login", {
+      const res = await fetch("/login", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, pw })
       });
 
