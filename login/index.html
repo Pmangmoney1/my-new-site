@@ -1,14 +1,43 @@
-<input id="id" placeholder="ID">
-<input id="pw" type="password" placeholder="PW">
-<button onclick="login()">로그인</button>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>로그인</title>
+  <style>
+    body { font-family: sans-serif; padding: 40px; max-width: 400px; margin: auto; }
+    input { width: 100%; padding: 12px; margin: 10px 0; }
+    button { width: 100%; padding: 12px; font-size: 16px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<h2>관리자 로그인</h2>
+
+<input id="id" placeholder="아이디" />
+<input id="pw" type="password" placeholder="비밀번호" />
+<button id="loginBtn">로그인</button>
 
 <script>
-function login() {
-  if (id.value === "admin" && pw.value === "1234") {
-    localStorage.setItem("token", "ok");
+document.getElementById("loginBtn").onclick = async () => {
+  const id = document.getElementById("id").value;
+  const pw = document.getElementById("pw").value;
+
+  const res = await fetch("/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id, password: pw })
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    localStorage.setItem("loggedIn", "true");
     location.href = "/admin";
   } else {
-    alert("틀림");
+    alert("로그인 실패");
   }
-}
+};
 </script>
+
+</body>
+</html>
