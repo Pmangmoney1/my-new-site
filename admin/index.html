@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JUJU 관리자</title>
+<title>JUJU ADMIN</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -22,131 +23,20 @@ body{
   overflow:hidden;
 }
 
+/* LAYOUT */
+
 .wrapper{
   display:flex;
   height:100vh;
 }
 
-/* LEFT */
-
 .sidebar{
-  width:420px;
-  background:#111;
-  border-right:1px solid rgba(255,255,255,0.06);
+  width:430px;
+  background:#101010;
   overflow-y:auto;
-  padding:30px;
+  border-right:1px solid rgba(255,255,255,0.06);
+  padding:28px;
 }
-
-.logo{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:10px;
-}
-
-.sub{
-  color:#999;
-  font-size:14px;
-  margin-bottom:30px;
-}
-
-.group{
-  margin-bottom:40px;
-}
-
-.group-title{
-  font-size:13px;
-  color:#f5c15d;
-  margin-bottom:18px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
-
-.card{
-  background:#171717;
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:16px;
-  border:1px solid rgba(255,255,255,0.05);
-}
-
-label{
-  display:block;
-  margin-bottom:8px;
-  font-size:13px;
-  color:#bbb;
-}
-
-input,
-textarea{
-  width:100%;
-  background:#0d0d0d;
-  border:1px solid rgba(255,255,255,0.08);
-  color:#fff;
-  border-radius:12px;
-  padding:14px;
-  outline:none;
-  font-size:14px;
-}
-
-textarea{
-  resize:vertical;
-  min-height:100px;
-}
-
-input[type="color"]{
-  height:60px;
-  padding:5px;
-}
-
-.preview-image{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:12px;
-  border:1px solid rgba(255,255,255,0.08);
-}
-
-.upload-btn{
-  width:100%;
-  background:#f5c15d;
-  color:#000;
-  border:none;
-  border-radius:12px;
-  padding:14px;
-  font-weight:600;
-  cursor:pointer;
-}
-
-.save-btn{
-  position:fixed;
-  bottom:25px;
-  left:25px;
-  width:370px;
-  background:linear-gradient(135deg,#f5c15d,#ffdf8a);
-  color:#000;
-  border:none;
-  border-radius:16px;
-  padding:18px;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:999;
-  box-shadow:0 10px 30px rgba(245,193,93,0.25);
-}
-
-.save-status{
-  position:fixed;
-  bottom:95px;
-  left:25px;
-  background:#171717;
-  padding:10px 16px;
-  border-radius:12px;
-  font-size:13px;
-  color:#aaa;
-}
-
-/* RIGHT */
 
 .preview{
   flex:1;
@@ -154,7 +44,126 @@ input[type="color"]{
   background:#000;
 }
 
-/* HERO */
+/* LEFT */
+
+.logo{
+  font-size:30px;
+  font-weight:700;
+}
+
+.sub{
+  color:#777;
+  margin-top:6px;
+  margin-bottom:35px;
+  font-size:14px;
+}
+
+.section-card{
+  background:#171717;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:22px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.section-title{
+  font-size:13px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#f5c15d;
+  margin-bottom:18px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  color:#bbb;
+  font-size:13px;
+}
+
+input,
+textarea{
+  width:100%;
+  background:#0c0c0c;
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px;
+  color:#fff;
+  padding:14px;
+  outline:none;
+  margin-bottom:16px;
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+input[type="color"]{
+  height:60px;
+}
+
+.preview-image{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:14px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+
+/* BUTTONS */
+
+.image-buttons{
+  display:flex;
+  gap:8px;
+  margin-bottom:14px;
+}
+
+.image-buttons button{
+  flex:1;
+  border:none;
+  background:#222;
+  color:#fff;
+  border-radius:12px;
+  padding:12px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.image-buttons button:hover{
+  background:#333;
+}
+
+.save-btn{
+  position:fixed;
+  left:25px;
+  bottom:25px;
+  width:380px;
+  border:none;
+  border-radius:18px;
+  padding:18px;
+  background:linear-gradient(135deg,#f5c15d,#ffdc82);
+  color:#000;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  z-index:999;
+  box-shadow:0 15px 35px rgba(245,193,93,0.25);
+}
+
+.save-status{
+  position:fixed;
+  left:25px;
+  bottom:95px;
+  background:#171717;
+  border-radius:12px;
+  padding:10px 16px;
+  font-size:13px;
+  color:#aaa;
+  z-index:999;
+}
+
+/* PREVIEW */
 
 .hero{
   height:100vh;
@@ -163,7 +172,6 @@ input[type="color"]{
   align-items:center;
   justify-content:center;
   text-align:center;
-  overflow:hidden;
 }
 
 .hero-bg{
@@ -182,21 +190,19 @@ input[type="color"]{
 }
 
 .hero-logo{
-  font-size:20px;
-  letter-spacing:4px;
-  margin-bottom:30px;
   color:#f5c15d;
-}
-
-.hero-title{
-  font-weight:700;
-  line-height:1.1;
+  letter-spacing:4px;
   margin-bottom:25px;
 }
 
+.hero-title{
+  line-height:1.1;
+  margin-bottom:24px;
+}
+
 .hero-text{
-  font-size:18px;
   color:#ddd;
+  font-size:18px;
   margin-bottom:35px;
 }
 
@@ -209,86 +215,168 @@ input[type="color"]{
   font-weight:600;
 }
 
-/* SERVICES */
-
 .section{
-  padding:100px 60px;
+  padding:90px 60px;
 }
 
-.section-title{
-  font-size:42px;
+.main-title{
   text-align:center;
+  font-size:42px;
   margin-bottom:15px;
 }
 
-.section-desc{
-  color:#aaa;
+.main-desc{
   text-align:center;
+  color:#aaa;
   max-width:700px;
-  margin:0 auto 60px;
+  margin:0 auto 55px;
 }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:30px;
+  gap:28px;
 }
 
-.service-card{
+.card{
   background:#111;
   border-radius:22px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,0.06);
 }
 
-.service-card img{
+.card img{
   width:100%;
   height:240px;
   object-fit:cover;
 }
 
-.service-card-content{
-  padding:25px;
+.card-content{
+  padding:24px;
 }
 
-.service-card h3{
+.card-content h3{
   font-size:24px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
-.service-card p{
+.card-content p{
   color:#aaa;
   line-height:1.7;
 }
-
-/* CONTACT */
 
 .contact{
   text-align:center;
 }
 
-.contact-links{
-  margin-top:30px;
+.contact-buttons{
+  margin-top:35px;
   display:flex;
   justify-content:center;
-  gap:20px;
+  gap:18px;
   flex-wrap:wrap;
 }
 
-.contact-links a{
-  padding:16px 30px;
-  background:#171717;
-  border-radius:50px;
-  color:#fff;
+.contact-buttons a{
   text-decoration:none;
+  color:#fff;
+  background:#171717;
+  padding:16px 30px;
+  border-radius:50px;
   border:1px solid rgba(255,255,255,0.06);
 }
 
 .footer{
-  padding:40px;
   text-align:center;
   color:#666;
+  padding:45px;
   border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* POPUP */
+
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  z-index:99999;
+}
+
+.popup-box{
+  width:900px;
+  max-width:95%;
+  max-height:90vh;
+  overflow-y:auto;
+  background:#111;
+  margin:40px auto;
+  border-radius:24px;
+  padding:24px;
+}
+
+.popup-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+}
+
+.popup-title{
+  font-size:22px;
+  font-weight:600;
+}
+
+.close-btn{
+  background:#222;
+  border:none;
+  color:#fff;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+
+.image-item{
+  border:3px solid transparent;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.image-item.selected{
+  border-color:#f5c15d;
+}
+
+.image-item img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+
+.popup-actions{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.popup-actions button{
+  border:none;
+  background:#222;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.url-input{
+  display:none;
+  margin-bottom:18px;
 }
 
 /* MOBILE */
@@ -306,11 +394,6 @@ input[type="color"]{
 
   .sidebar{
     width:100%;
-    height:auto;
-  }
-
-  .preview{
-    width:100%;
   }
 
   .cards{
@@ -321,15 +404,8 @@ input[type="color"]{
     width:calc(100% - 50px);
   }
 
-  .section{
-    padding:70px 25px;
-  }
-
-  .hero-title{
-    font-size:42px!important;
-  }
-
 }
+
 </style>
 </head>
 
@@ -344,209 +420,160 @@ if(localStorage.getItem("loggedIn") !== "true"){
 <div class="wrapper">
 
   <!-- LEFT -->
+
   <div class="sidebar">
 
     <div class="logo">JUJU ADMIN</div>
-    <div class="sub">Premium Landing Page Manager</div>
+    <div class="sub">Premium Landing Page Builder</div>
 
     <!-- HERO -->
-    <div class="group">
 
-      <div class="group-title">Hero Section</div>
+    <div class="section-card">
 
-      <div class="card">
+      <div class="section-title">Hero Section</div>
 
-        <label>로고</label>
-        <input id="logo">
+      <label>로고</label>
+      <input id="logo">
 
-        <br><br>
+      <label>메인 제목</label>
+      <textarea id="heroTitle"></textarea>
 
-        <label>메인 제목</label>
-        <textarea id="heroTitle"></textarea>
+      <label>메인 설명</label>
+      <textarea id="heroText"></textarea>
 
-        <br>
+      <label>버튼 텍스트</label>
+      <input id="heroButton">
 
-        <label>메인 설명</label>
-        <textarea id="heroText"></textarea>
+      <label>제목 크기</label>
+      <input id="heroTitleSize" type="number">
 
-        <br>
-
-        <label>버튼 텍스트</label>
-        <input id="heroButton">
-
-        <br><br>
-
-        <label>제목 크기</label>
-        <input id="heroTitleSize" type="number">
-
-        <br><br>
-
-        <label>제목 색상</label>
-        <input id="heroTitleColor" type="color">
-
-      </div>
+      <label>제목 색상</label>
+      <input id="heroTitleColor" type="color">
 
     </div>
 
     <!-- HERO IMAGE -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Background Image</div>
+      <div class="section-title">Hero Background</div>
 
-      <div class="card">
+      <img id="heroImagePreview" class="preview-image">
 
-        <img id="heroPreview" class="preview-image">
-
-        <input id="heroImage">
-
+      <div class="image-buttons">
+        <button onclick="openPopup('heroImage')">Choose Default</button>
+        <button onclick="openUrlBox('heroImage')">Choose From URL</button>
       </div>
+
+      <input id="heroImage">
 
     </div>
 
     <!-- SERVICES -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Services</div>
+      <div class="section-title">Services</div>
 
-      <div class="card">
-
-        <label>서비스 제목</label>
-        <input id="serviceTitle">
-
-        <br><br>
-
-        <label>서비스 설명</label>
-        <textarea id="serviceDesc"></textarea>
-
-      </div>
+      <input id="serviceTitle">
+      <textarea id="serviceDesc"></textarea>
 
     </div>
 
     <!-- CARD 1 -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Card 1</div>
+      <div class="section-title">Card 1</div>
 
-      <div class="card">
+      <img id="card1ImagePreview" class="preview-image">
 
-        <img id="card1Preview" class="preview-image">
-
-        <input id="card1Image">
-
-        <br><br>
-
-        <input id="card1Title">
-
-        <br><br>
-
-        <textarea id="card1Text"></textarea>
-
+      <div class="image-buttons">
+        <button onclick="openPopup('card1Image')">Choose Default</button>
+        <button onclick="openUrlBox('card1Image')">Choose From URL</button>
       </div>
+
+      <input id="card1Image">
+
+      <input id="card1Title">
+
+      <textarea id="card1Text"></textarea>
 
     </div>
 
     <!-- CARD 2 -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Card 2</div>
+      <div class="section-title">Card 2</div>
 
-      <div class="card">
+      <img id="card2ImagePreview" class="preview-image">
 
-        <img id="card2Preview" class="preview-image">
-
-        <input id="card2Image">
-
-        <br><br>
-
-        <input id="card2Title">
-
-        <br><br>
-
-        <textarea id="card2Text"></textarea>
-
+      <div class="image-buttons">
+        <button onclick="openPopup('card2Image')">Choose Default</button>
+        <button onclick="openUrlBox('card2Image')">Choose From URL</button>
       </div>
+
+      <input id="card2Image">
+
+      <input id="card2Title">
+
+      <textarea id="card2Text"></textarea>
 
     </div>
 
     <!-- CARD 3 -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Card 3</div>
+      <div class="section-title">Card 3</div>
 
-      <div class="card">
+      <img id="card3ImagePreview" class="preview-image">
 
-        <img id="card3Preview" class="preview-image">
-
-        <input id="card3Image">
-
-        <br><br>
-
-        <input id="card3Title">
-
-        <br><br>
-
-        <textarea id="card3Text"></textarea>
-
+      <div class="image-buttons">
+        <button onclick="openPopup('card3Image')">Choose Default</button>
+        <button onclick="openUrlBox('card3Image')">Choose From URL</button>
       </div>
+
+      <input id="card3Image">
+
+      <input id="card3Title">
+
+      <textarea id="card3Text"></textarea>
 
     </div>
 
     <!-- CONTACT -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Contact</div>
+      <div class="section-title">Contact</div>
 
-      <div class="card">
+      <input id="contactTitle">
+      <textarea id="contactText"></textarea>
 
-        <input id="contactTitle">
+      <input id="telegramLink">
+      <input id="telegramId">
 
-        <br><br>
-
-        <textarea id="contactText"></textarea>
-
-        <br><br>
-
-        <input id="telegramLink">
-
-        <br><br>
-
-        <input id="telegramId">
-
-        <br><br>
-
-        <input id="kakaoLink">
-
-        <br><br>
-
-        <input id="kakaoId">
-
-      </div>
+      <input id="kakaoLink">
+      <input id="kakaoId">
 
     </div>
 
     <!-- FOOTER -->
 
-    <div class="group">
+    <div class="section-card">
 
-      <div class="group-title">Footer</div>
+      <div class="section-title">Footer</div>
 
-      <div class="card">
-
-        <input id="footerText">
-
-      </div>
+      <input id="footerText">
 
     </div>
 
   </div>
 
   <!-- RIGHT -->
+
   <div class="preview">
 
     <section class="hero">
@@ -569,31 +596,31 @@ if(localStorage.getItem("loggedIn") !== "true"){
 
     <section class="section">
 
-      <h2 class="section-title" id="previewServiceTitle"></h2>
+      <h2 class="main-title" id="previewServiceTitle"></h2>
 
-      <div class="section-desc" id="previewServiceDesc"></div>
+      <div class="main-desc" id="previewServiceDesc"></div>
 
       <div class="cards">
 
-        <div class="service-card">
+        <div class="card">
           <img id="previewCard1Image">
-          <div class="service-card-content">
+          <div class="card-content">
             <h3 id="previewCard1Title"></h3>
             <p id="previewCard1Text"></p>
           </div>
         </div>
 
-        <div class="service-card">
+        <div class="card">
           <img id="previewCard2Image">
-          <div class="service-card-content">
+          <div class="card-content">
             <h3 id="previewCard2Title"></h3>
             <p id="previewCard2Text"></p>
           </div>
         </div>
 
-        <div class="service-card">
+        <div class="card">
           <img id="previewCard3Image">
-          <div class="service-card-content">
+          <div class="card-content">
             <h3 id="previewCard3Title"></h3>
             <p id="previewCard3Text"></p>
           </div>
@@ -605,11 +632,11 @@ if(localStorage.getItem("loggedIn") !== "true"){
 
     <section class="section contact">
 
-      <h2 class="section-title" id="previewContactTitle"></h2>
+      <h2 class="main-title" id="previewContactTitle"></h2>
 
-      <div class="section-desc" id="previewContactText"></div>
+      <div class="main-desc" id="previewContactText"></div>
 
-      <div class="contact-links">
+      <div class="contact-buttons">
 
         <a id="previewTelegram" target="_blank">Telegram</a>
 
@@ -620,6 +647,54 @@ if(localStorage.getItem("loggedIn") !== "true"){
     </section>
 
     <div class="footer" id="previewFooter"></div>
+
+  </div>
+
+</div>
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+  <div class="popup-box">
+
+    <div class="popup-header">
+
+      <div class="popup-title">Image Manager</div>
+
+      <button class="close-btn" onclick="closePopup()">✕</button>
+
+    </div>
+
+    <div class="popup-actions">
+
+      <button onclick="document.getElementById('uploadInput').click()">
+        Upload
+      </button>
+
+      <button onclick="toggleUrlInput()">
+        URL
+      </button>
+
+      <button onclick="applySelectedImage()">
+        Save
+      </button>
+
+    </div>
+
+    <input type="file" id="uploadInput" style="display:none" onchange="uploadImage(event)">
+
+    <div class="url-input" id="urlInputBox">
+
+      <input id="popupUrlInput" placeholder="https://image.jpg">
+
+      <button onclick="applyUrlImage()">
+        Apply URL
+      </button>
+
+    </div>
+
+    <div class="image-grid" id="imageGrid"></div>
 
   </div>
 
@@ -636,6 +711,8 @@ if(localStorage.getItem("loggedIn") !== "true"){
 <script>
 
 let data={};
+let currentImageField=null;
+let selectedImage=null;
 
 const fields=[
 "logo",
@@ -684,10 +761,10 @@ async function loadData(){
 
 function renderPreview(){
 
-  heroPreview.src=data.heroImage||"";
-  card1Preview.src=data.card1Image||"";
-  card2Preview.src=data.card2Image||"";
-  card3Preview.src=data.card3Image||"";
+  heroImagePreview.src=data.heroImage||"";
+  card1ImagePreview.src=data.card1Image||"";
+  card2ImagePreview.src=data.card2Image||"";
+  card3ImagePreview.src=data.card3Image||"";
 
   previewHeroBg.style.backgroundImage=`url('${data.heroImage}')`;
 
@@ -746,6 +823,117 @@ fields.forEach(id=>{
   });
 
 });
+
+/* POPUP */
+
+async function openPopup(field){
+
+  currentImageField=field;
+
+  popup.style.display="block";
+
+  loadImages();
+
+}
+
+function closePopup(){
+
+  popup.style.display="none";
+
+}
+
+async function loadImages(){
+
+  const res=await fetch("/api/images");
+  const images=await res.json();
+
+  imageGrid.innerHTML="";
+
+  images.forEach(img=>{
+
+    const div=document.createElement("div");
+
+    div.className="image-item";
+
+    div.innerHTML=`<img src="${img}">`;
+
+    div.onclick=()=>{
+
+      document.querySelectorAll(".image-item").forEach(i=>{
+        i.classList.remove("selected");
+      });
+
+      div.classList.add("selected");
+
+      selectedImage=img;
+
+    };
+
+    imageGrid.appendChild(div);
+
+  });
+
+}
+
+function applySelectedImage(){
+
+  if(!selectedImage) return;
+
+  data[currentImageField]=selectedImage;
+
+  document.getElementById(currentImageField).value=selectedImage;
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+function toggleUrlInput(){
+
+  urlInputBox.style.display=
+    urlInputBox.style.display==="block"
+    ? "none"
+    : "block";
+
+}
+
+function applyUrlImage(){
+
+  const url=popupUrlInput.value;
+
+  if(!url) return;
+
+  data[currentImageField]=url;
+
+  document.getElementById(currentImageField).value=url;
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+async function uploadImage(e){
+
+  const file=e.target.files[0];
+
+  const form=new FormData();
+
+  form.append("file",file);
+
+  const res=await fetch("/api/upload",{
+    method:"POST",
+    body:form
+  });
+
+  const result=await res.json();
+
+  selectedImage=result.url;
+
+  loadImages();
+
+}
 
 saveBtn.onclick=async()=>{
 
