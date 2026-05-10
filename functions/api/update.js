@@ -1,32 +1,7 @@
-export async function onRequestPost(context) {
+export async function onRequestPost() {
 
-  try {
-
-    const data = await context.request.json();
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        data
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-
-  } catch (e) {
-
-    return new Response(
-      JSON.stringify({
-        success: false
-      }),
-      {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }
-    );
-  }
+  return Response.json({
+    success:true,
+    path:"/uploads/sample1.jpg"
+  });
 }
