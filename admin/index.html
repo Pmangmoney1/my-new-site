@@ -1,67 +1,334 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JUJU ADMIN</title>
 
-<title>관리자</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
 body{
-    font-family:Arial;
-    background:#111;
-    color:#fff;
-    margin:0;
-    padding:20px;
+  font-family:'Poppins',sans-serif;
+  background:#0b0b0b;
+  color:#fff;
 }
 
-.container{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
+.wrapper{
+  display:flex;
+  min-height:100vh;
 }
 
-.box{
-    background:#222;
-    padding:20px;
-    border-radius:10px;
+.sidebar{
+  width:50%;
+  background:#101010;
+  padding:30px;
+  overflow-y:auto;
+  border-right:1px solid rgba(255,255,255,.08);
 }
 
-input, textarea{
+.preview{
+  width:50%;
+  background:#000;
+  padding:30px;
+  overflow-y:auto;
+}
+
+.logo{
+  font-size:30px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.sub{
+  color:#777;
+  margin-bottom:30px;
+}
+
+.section-card{
+  background:#171717;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.section-title{
+  color:#f5c15d;
+  margin-bottom:15px;
+  font-size:14px;
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  color:#bbb;
+  font-size:13px;
+}
+
+input,
+textarea{
+  width:100%;
+  background:#0c0c0c;
+  border:1px solid rgba(255,255,255,.08);
+  color:#fff;
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:15px;
+}
+
+textarea{
+  min-height:100px;
+}
+
+.preview-image{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+
+.image-buttons{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.image-buttons button{
+  flex:1;
+  border:none;
+  background:#222;
+  color:#fff;
+  padding:12px;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.save-btn{
+  position:fixed;
+  left:25px;
+  bottom:25px;
+  width:calc(50% - 50px);
+  border:none;
+  border-radius:18px;
+  padding:18px;
+  background:#f5c15d;
+  color:#000;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.save-status{
+  position:fixed;
+  left:25px;
+  bottom:95px;
+  background:#171717;
+  padding:10px 15px;
+  border-radius:10px;
+  color:#aaa;
+}
+
+.hero{
+  position:relative;
+  height:500px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.4);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  padding:20px;
+}
+
+.hero-logo{
+  color:#f5c15d;
+  margin-bottom:15px;
+  letter-spacing:3px;
+}
+
+.hero-title{
+  font-size:50px;
+  margin-bottom:20px;
+}
+
+.hero-text{
+  color:#ddd;
+  margin-bottom:25px;
+}
+
+.hero-button{
+  display:inline-block;
+  background:#f5c15d;
+  color:#000;
+  padding:14px 30px;
+  border-radius:50px;
+  font-weight:600;
+}
+
+.section{
+  padding:60px 30px;
+}
+
+.main-title{
+  text-align:center;
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.main-desc{
+  text-align:center;
+  color:#999;
+  margin-bottom:40px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.card{
+  background:#111;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:20px;
+}
+
+.contact{
+  text-align:center;
+}
+
+.contact-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.contact-buttons a{
+  background:#171717;
+  color:#fff;
+  text-decoration:none;
+  padding:12px 20px;
+  border-radius:50px;
+}
+
+.footer{
+  padding:30px;
+  text-align:center;
+  color:#666;
+}
+
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:9999;
+}
+
+.popup-box{
+  width:900px;
+  max-width:95%;
+  background:#111;
+  margin:40px auto;
+  border-radius:20px;
+  padding:25px;
+}
+
+.popup-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.close-btn{
+  width:40px;
+  height:40px;
+  border:none;
+  background:#222;
+  color:#fff;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+.image-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.image-item{
+  border:3px solid transparent;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.image-item.selected{
+  border-color:#f5c15d;
+}
+
+.image-item img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+
+.url-input{
+  display:none;
+  margin-bottom:20px;
+}
+
+@media(max-width:1000px){
+
+  .wrapper{
+    flex-direction:column;
+  }
+
+  .sidebar,
+  .preview{
     width:100%;
-    padding:10px;
-    margin-top:10px;
-    margin-bottom:20px;
-    background:#333;
-    border:none;
-    color:#fff;
-}
+  }
 
-button{
-    padding:10px 20px;
-    cursor:pointer;
-}
+  .cards{
+    grid-template-columns:1fr;
+  }
 
-.preview img{
-    width:100%;
-    max-width:300px;
-}
+  .save-btn{
+    width:calc(100% - 50px);
+  }
 
-.images{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.images img{
-    width:100px;
-    cursor:pointer;
-    border:2px solid transparent;
-}
-
-.images img:hover{
-    border-color:yellow;
 }
 
 </style>
@@ -69,240 +336,754 @@ button{
 
 <body>
 
-<h1>관리자 페이지</h1>
+<script>
 
-<div class="container">
+if(localStorage.getItem("loggedIn") !== "true"){
+  location.href="/login.html";
+}
 
-    <div class="box">
+</script>
 
-        <h2>글 수정</h2>
+<div class="wrapper">
 
-        <input id="title" placeholder="제목">
+<div class="sidebar">
 
-        <textarea id="description" rows="10" placeholder="내용"></textarea>
+<div class="logo">JUJU ADMIN</div>
 
-        <input type="file" id="upload">
+<div class="sub">Premium Landing Page Builder</div>
 
-        <button id="saveBtn">저장</button>
+<div class="section-card">
 
-        <h3>업로드 이미지</h3>
+<div class="section-title">Hero</div>
 
-        <div class="images" id="images"></div>
+<label>Logo</label>
+<input id="logo">
 
-    </div>
+<label>Hero Title</label>
+<textarea id="heroTitle"></textarea>
 
+<label>Hero Text</label>
+<textarea id="heroText"></textarea>
 
+<label>Button Text</label>
+<input id="heroButton">
 
-    <div class="box preview">
+<label>Title Size</label>
+<input id="heroTitleSize" type="number">
 
-        <h2 id="previewTitle"></h2>
-
-        <p id="previewDescription"></p>
-
-        <img id="previewImage">
-
-    </div>
+<label>Title Color</label>
+<input id="heroTitleColor" type="color">
 
 </div>
 
+<div class="section-card">
 
+<div class="section-title">Hero Image</div>
+
+<img class="preview-image" id="heroImagePreview">
+
+<div class="image-buttons">
+<button onclick="openPopup('heroImage')">Choose</button>
+<button onclick="openUrlBox('heroImage')">URL</button>
+</div>
+
+<input id="heroImage">
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Services</div>
+
+<input id="serviceTitle">
+
+<textarea id="serviceDesc"></textarea>
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Card 1</div>
+
+<img class="preview-image" id="card1ImagePreview">
+
+<div class="image-buttons">
+<button onclick="openPopup('card1Image')">Choose</button>
+<button onclick="openUrlBox('card1Image')">URL</button>
+</div>
+
+<input id="card1Image">
+
+<input id="card1Title">
+
+<textarea id="card1Text"></textarea>
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Card 2</div>
+
+<img class="preview-image" id="card2ImagePreview">
+
+<div class="image-buttons">
+<button onclick="openPopup('card2Image')">Choose</button>
+<button onclick="openUrlBox('card2Image')">URL</button>
+</div>
+
+<input id="card2Image">
+
+<input id="card2Title">
+
+<textarea id="card2Text"></textarea>
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Card 3</div>
+
+<img class="preview-image" id="card3ImagePreview">
+
+<div class="image-buttons">
+<button onclick="openPopup('card3Image')">Choose</button>
+<button onclick="openUrlBox('card3Image')">URL</button>
+</div>
+
+<input id="card3Image">
+
+<input id="card3Title">
+
+<textarea id="card3Text"></textarea>
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Contact</div>
+
+<input id="contactTitle">
+
+<textarea id="contactText"></textarea>
+
+<input id="telegramLink">
+
+<input id="telegramId">
+
+<input id="kakaoLink">
+
+<input id="kakaoId">
+
+</div>
+
+<div class="section-card">
+
+<div class="section-title">Footer</div>
+
+<input id="footerText">
+
+</div>
+
+</div>
+
+<div class="preview">
+
+<section class="hero">
+
+<div class="hero-bg" id="previewHeroBg"></div>
+
+<div class="hero-content">
+
+<div class="hero-logo" id="previewLogo"></div>
+
+<h1 class="hero-title" id="previewHeroTitle"></h1>
+
+<div class="hero-text" id="previewHeroText"></div>
+
+<div class="hero-button" id="previewHeroButton"></div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="main-title" id="previewServiceTitle"></h2>
+
+<div class="main-desc" id="previewServiceDesc"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<img id="previewCard1Image">
+
+<div class="card-content">
+
+<h3 id="previewCard1Title"></h3>
+
+<p id="previewCard1Text"></p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img id="previewCard2Image">
+
+<div class="card-content">
+
+<h3 id="previewCard2Title"></h3>
+
+<p id="previewCard2Text"></p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<img id="previewCard3Image">
+
+<div class="card-content">
+
+<h3 id="previewCard3Title"></h3>
+
+<p id="previewCard3Text"></p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section contact">
+
+<h2 class="main-title" id="previewContactTitle"></h2>
+
+<div class="main-desc" id="previewContactText"></div>
+
+<div class="contact-buttons">
+
+<a id="previewTelegram" target="_blank">Telegram</a>
+
+<a id="previewKakao" target="_blank">Kakao</a>
+
+</div>
+
+</section>
+
+<div class="footer" id="previewFooter"></div>
+
+</div>
+
+</div>
+
+<div class="popup" id="popup">
+
+<div class="popup-box">
+
+<div class="popup-header">
+
+<h2>Image Manager</h2>
+
+<button class="close-btn" onclick="closePopup()">✕</button>
+
+</div>
+
+<div style="display:flex;gap:10px;margin-bottom:20px;">
+
+<button onclick="document.getElementById('uploadInput').click()">
+Upload
+</button>
+
+<button onclick="toggleUrlInput()">
+URL
+</button>
+
+<button onclick="applySelectedImage()">
+Save
+</button>
+
+</div>
+
+<input
+type="file"
+id="uploadInput"
+style="display:none"
+>
+
+<div class="url-input" id="urlInputBox">
+
+<input id="popupUrlInput" placeholder="https://image.jpg">
+
+<button onclick="applyUrlImage()">
+Apply URL
+</button>
+
+</div>
+
+<div class="image-grid" id="imageGrid"></div>
+
+</div>
+
+</div>
+
+<div class="save-status" id="saveStatus">
+저장되지 않음
+</div>
+
+<button class="save-btn" id="saveBtn">
+저장하기
+</button>
 
 <script>
 
-let data = {
-    title:'',
-    description:'',
-    image:''
-};
+let data = {};
 
-const titleInput = document.getElementById('title');
-const descriptionInput = document.getElementById('description');
+let currentImageField = null;
 
-const previewTitle = document.getElementById('previewTitle');
-const previewDescription = document.getElementById('previewDescription');
-const previewImage = document.getElementById('previewImage');
+let selectedImage = null;
 
+const fields = [
 
+"logo",
+"heroImage",
+"heroTitle",
+"heroText",
+"heroButton",
+"heroTitleSize",
+"heroTitleColor",
 
-function updatePreview(){
+"serviceTitle",
+"serviceDesc",
 
-    previewTitle.textContent = titleInput.value;
+"card1Title",
+"card1Text",
+"card1Image",
 
-    previewDescription.textContent = descriptionInput.value;
+"card2Title",
+"card2Text",
+"card2Image",
 
-    previewImage.src = data.image || '';
-}
+"card3Title",
+"card3Text",
+"card3Image",
 
+"contactTitle",
+"contactText",
 
+"telegramLink",
+"telegramId",
 
-/* 데이터 불러오기 */
+"kakaoLink",
+"kakaoId",
+
+"footerText"
+
+];
 
 async function loadData(){
 
-    try{
+  try{
 
-        const res = await fetch('/content/site.json');
+    const res =
+      await fetch("/content/site.json");
 
-        data = await res.json();
+    data = await res.json();
 
-        titleInput.value = data.title || '';
+    fields.forEach(id=>{
 
-        descriptionInput.value = data.description || '';
+      const el =
+        document.getElementById(id);
 
-        updatePreview();
+      if(el){
 
-    }catch(err){
+        el.value = data[id] || "";
 
-        console.error(err);
+      }
 
-        alert('site.json 로드 실패');
-    }
+    });
+
+    renderPreview();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert("site.json 로드 실패");
+
+  }
+
 }
 
+function renderPreview(){
 
+  const setHTML = (id,val="")=>{
 
-/* 저장 */
+    const el =
+      document.getElementById(id);
 
-async function saveData(){
+    if(el) el.innerHTML = val;
 
-    data.title = titleInput.value;
+  };
 
-    data.description = descriptionInput.value;
+  const setSRC = (id,val="")=>{
 
-    try{
+    const el =
+      document.getElementById(id);
 
-        const res = await fetch('/api/update',{
+    if(el) el.src = val;
 
-            method:'POST',
+  };
 
-            headers:{
-                'Content-Type':'application/json'
-            },
+  setSRC("heroImagePreview",data.heroImage);
 
-            body:JSON.stringify(data)
-        });
+  setSRC("card1ImagePreview",data.card1Image);
 
-        const result = await res.json();
+  setSRC("card2ImagePreview",data.card2Image);
 
-        if(result.success){
+  setSRC("card3ImagePreview",data.card3Image);
 
-            alert('저장 완료');
+  setSRC("previewCard1Image",data.card1Image);
 
-        }else{
+  setSRC("previewCard2Image",data.card2Image);
 
-            alert('저장 실패');
-        }
+  setSRC("previewCard3Image",data.card3Image);
 
-    }catch(err){
+  const bg =
+    document.getElementById("previewHeroBg");
 
-        console.error(err);
+  if(bg){
 
-        alert('서버 오류');
-    }
+    bg.style.backgroundImage =
+      `url('${data.heroImage || ""}')`;
+
+  }
+
+  setHTML("previewLogo",data.logo);
+
+  setHTML("previewHeroTitle",data.heroTitle);
+
+  setHTML("previewHeroText",data.heroText);
+
+  setHTML("previewHeroButton",data.heroButton);
+
+  setHTML("previewServiceTitle",data.serviceTitle);
+
+  setHTML("previewServiceDesc",data.serviceDesc);
+
+  setHTML("previewCard1Title",data.card1Title);
+
+  setHTML("previewCard1Text",data.card1Text);
+
+  setHTML("previewCard2Title",data.card2Title);
+
+  setHTML("previewCard2Text",data.card2Text);
+
+  setHTML("previewCard3Title",data.card3Title);
+
+  setHTML("previewCard3Text",data.card3Text);
+
+  setHTML("previewContactTitle",data.contactTitle);
+
+  setHTML("previewContactText",data.contactText);
+
+  setHTML("previewFooter",data.footerText);
+
+  const title =
+    document.getElementById("previewHeroTitle");
+
+  if(title){
+
+    title.style.color =
+      data.heroTitleColor || "#fff";
+
+    title.style.fontSize =
+      (data.heroTitleSize || 40) + "px";
+
+  }
+
+  const tg =
+    document.getElementById("previewTelegram");
+
+  if(tg){
+
+    tg.href =
+      data.telegramLink || "#";
+
+    tg.innerHTML =
+      data.telegramId || "Telegram";
+
+  }
+
+  const kk =
+    document.getElementById("previewKakao");
+
+  if(kk){
+
+    kk.href =
+      data.kakaoLink || "#";
+
+    kk.innerHTML =
+      data.kakaoId || "Kakao";
+
+  }
+
 }
 
+fields.forEach(id=>{
 
+  document.addEventListener("input",e=>{
 
-/* 이미지 업로드 */
+    if(e.target.id===id){
 
-async function uploadImage(file){
+      data[id] = e.target.value;
 
-    const formData = new FormData();
+      renderPreview();
 
-    formData.append('image', file);
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장되지 않음";
 
-    try{
-
-        const res = await fetch('/api/upload',{
-
-            method:'POST',
-
-            body:formData
-        });
-
-        const result = await res.json();
-
-        data.image = result.path;
-
-        updatePreview();
-
-        loadImages();
-
-    }catch(err){
-
-        console.error(err);
-
-        alert('업로드 실패');
     }
+
+  });
+
+});
+
+function openPopup(field){
+
+  currentImageField = field;
+
+  document
+    .getElementById("popup")
+    .style.display = "block";
+
+  loadImages();
+
 }
 
+function closePopup(){
 
+  document
+    .getElementById("popup")
+    .style.display = "none";
 
-/* 이미지 목록 */
+}
+
+function openUrlBox(field){
+
+  currentImageField = field;
+
+  document
+    .getElementById("popup")
+    .style.display = "block";
+
+  document
+    .getElementById("urlInputBox")
+    .style.display = "block";
+
+}
+
+function toggleUrlInput(){
+
+  const box =
+    document.getElementById("urlInputBox");
+
+  box.style.display =
+    box.style.display === "block"
+    ? "none"
+    : "block";
+
+}
 
 async function loadImages(){
 
+  const grid =
+    document.getElementById("imageGrid");
+
+  grid.innerHTML = "불러오는 중...";
+
+  try{
+
+    const res =
+      await fetch("/api/images");
+
+    const images =
+      await res.json();
+
+    grid.innerHTML = "";
+
+    if(!images.length){
+
+      grid.innerHTML =
+        "이미지 없음";
+
+      return;
+
+    }
+
+    images.forEach(img=>{
+
+      const div =
+        document.createElement("div");
+
+      div.className = "image-item";
+
+      div.innerHTML =
+        `<img src="${img}">`;
+
+      div.onclick = ()=>{
+
+        document
+          .querySelectorAll(".image-item")
+          .forEach(i=>
+            i.classList.remove("selected")
+          );
+
+        div.classList.add("selected");
+
+        selectedImage = img;
+
+      };
+
+      grid.appendChild(div);
+
+    });
+
+  }catch(err){
+
+    console.error(err);
+
+    grid.innerHTML =
+      "이미지 로드 실패";
+
+  }
+
+}
+
+async function uploadImage(e){
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+  const form = new FormData();
+
+  form.append("file",file);
+
+  try{
+
+    await fetch("/api/upload",{
+
+      method:"POST",
+
+      body:form
+
+    });
+
+    await loadImages();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert("업로드 실패");
+
+  }
+
+}
+
+function applyUrlImage(){
+
+  const input =
+    document.getElementById("popupUrlInput");
+
+  if(!input.value) return;
+
+  selectedImage = input.value;
+
+  applySelectedImage();
+
+}
+
+function applySelectedImage(){
+
+  if(!selectedImage ||
+     !currentImageField) return;
+
+  data[currentImageField] =
+    selectedImage;
+
+  const target =
+    document.getElementById(currentImageField);
+
+  if(target){
+
+    target.value = selectedImage;
+
+  }
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+document
+  .getElementById("uploadInput")
+  .addEventListener(
+    "change",
+    uploadImage
+  );
+
+document
+  .getElementById("saveBtn")
+  .onclick = async ()=>{
+
     try{
 
-        const res = await fetch('/api/images');
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 중...";
 
-        const images = await res.json();
+      await fetch("/api/update",{
 
-        const container = document.getElementById('images');
+        method:"POST",
 
-        container.innerHTML = '';
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-        images.forEach(item=>{
+        body:JSON.stringify(data)
 
-            const img = document.createElement('img');
+      });
 
-            img.src = item.url;
-
-            img.onclick = ()=>{
-
-                data.image = item.url;
-
-                updatePreview();
-            };
-
-            container.appendChild(img);
-        });
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 완료 ✓";
 
     }catch(err){
 
-        console.error(err);
+      console.error(err);
+
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 실패";
+
     }
-}
 
-
-
-/* 이벤트 */
-
-titleInput.addEventListener('input', updatePreview);
-
-descriptionInput.addEventListener('input', updatePreview);
-
-document.getElementById('saveBtn')
-.addEventListener('click', saveData);
-
-document.getElementById('upload')
-.addEventListener('change', e=>{
-
-    const file = e.target.files[0];
-
-    if(file){
-
-        uploadImage(file);
-    }
-});
-
-
+};
 
 loadData();
-
-loadImages();
 
 </script>
 
 </body>
 </html>
+```
