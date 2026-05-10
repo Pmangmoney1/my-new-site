@@ -675,50 +675,78 @@ fields.forEach(id=>{
 });
 
 async function openPopup(field){ currentImageField=field; popup.style.display="block"; loadImages(); }
-function closePopup(){ popup.style.display="none"; }
-async function loadImages(){
-  const res=await fetch("/api/images");
-  const images=await res.json();
-  imageGrid.innerHTML="";
-  images.forEach(img=>{
-    const div=document.createElement("div");
-    div.className="image-item";
-    div.innerHTML=`<img src="${img}">`;
-    div.onclick=()=>{
-      document.querySelectorAll(".image-item").forEach(i=>{ i.classList.remove("selected"); });
-      div.classList.add("selected");
-      selectedImage=img;
-    };
-    imageGrid.appendChild(div);
-  });
+async function openPopup(field) { 
+    currentImageField = field; 
+    const pop = document.getElementById("popup");
+    if(pop) pop.style.display = "block"; 
+    loadImages(); 
 }
 
-function applySelectedImage(){
-  if(!selectedImage) return;
-  data[currentImageField]=selectedImage;
-  document.getElementById(currentImageField).value=selectedImage;
-  renderPreview();
-  closePopup();
+function closePopup() { 
+    const pop = document.getElementById("popup");
+    if(pop) pop.style.display = "none"; 
 }
 
-function toggleUrlInput(){ urlInputBox.style.display= urlInputBox.style.display==="block" ? "none" : "block"; }
-function applyUrlImage(){
-  const url=popupUrlInput.value;
-  if(!url) return;
-  data[currentImageField]=url;
-  document.getElementById(currentImageField).value=url;
-  renderPreview();
-  closePopup();
+async function loadImages() {
+    const grid = document.getElementById("imageGrid");
+    if (!grid) return;
+    
+    grid.innerHTML = "<p style='padding:20px; color:#f5c15d;'>목록 불러오는 중...</p>";
+
+    try {
+        const res = await fetch("/api/images");
+        if (!res.ok) throw new Error("서버 응답 오류");
+        const images = await res.json();
+        
+        grid.innerHTML = "";
+        if (images.length === 0) {
+            grid.innerHTML = "<p style='padding:20px; color:#666;'>저장된 이미지가 없습니다.</p>";
+            return;
+        }
+
+        images.forEach(img => {
+            const div = document.createElement("div");
+            div.className = "image-item";
+            div.innerHTML = `<img src="${img}">`;
+            div.onclick = () => {
+                document.querySelectorAll(".image-item").forEach(i => i.classList.remove("selected"));
+                div.classList.add("selected");
+                selectedImage = img;
+            };
+            grid.appendChild(div);
+        });
+    } catch (err) {
+        grid.innerHTML = "<p style='padding:20px; color:#ff4d4d;'>이미지 목록을 가져오지 못했습니다.</p>";
+        console.error("목록 로드 실패:", err);
+    }
 }
 
-async function uploadImage(e){
-  const file=e.target.files[0];
-  const form=new FormData();
-  form.append("file",file);
-  const res=await fetch("/api/upload",{ method:"POST", body:form });
-  const result=await res.json();
-  selectedImage=result.url;
-  loadImages();
+async function uploadImage(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const status = document.getElementById("saveStatus");
+    if (status) status.innerHTML = "업로드 중...";
+
+    const form = new FormData();
+    form.append("file", file);
+
+    try {
+        const res = await fetch("/api/upload", { 
+            method: "POST", 
+            body: form 
+        });
+        
+        if (!res.ok) throw new Error("업로드 실패");
+        
+        const result = await res.json();
+        // 업로드 성공 후 목록 새로고침
+        await loadImages(); 
+        if (status) status.innerHTML = "업로드 완료 ✓";
+    } catch (err) {
+        alert("업로드에 실패했습니다.");
+        if (status) status.innerHTML = "업로드 실패";
+    }
 }
 
 saveBtn.onclick=async()=>{
