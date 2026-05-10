@@ -1,820 +1,774 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JUJU ADMIN</title>
+	<meta charset="utf-8">
+	<meta content="width=device-width,initial-scale=1" name="viewport">
+	<title>JUJU ADMIN</title>
+	<link href="https://fonts.googleapis.com" rel="preconnect">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<style>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	*{
+	 margin:0;
+	 padding:0;
+	 box-sizing:border-box;
+	}
 
-<style>
+	body{
+	 font-family:'Poppins',sans-serif;
+	 background:#0b0b0b;
+	 color:#fff;
+	 overflow:hidden;
+	}
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+	/* LAYOUT - 비율을 5:5(50%씩)로 조정 */
+	.wrapper{
+	 display:flex;
+	 height:100vh;
+	}
 
-body{
-  font-family:'Poppins',sans-serif;
-  background:#0b0b0b;
-  color:#fff;
-  overflow:hidden;
-}
+	.sidebar{
+	 width:50%; /* 왼쪽 설정창 50% */
+	 background:#101010;
+	 overflow-y:auto;
+	 border-right:1px solid rgba(255,255,255,0.06);
+	 padding:28px;
+	 padding-bottom: 120px; /* 저장 버튼 공간 확보 */
+	}
 
-/* LAYOUT - 비율을 5:5(50%씩)로 조정 */
-.wrapper{
-  display:flex;
-  height:100vh;
-}
+	.preview{
+	 width:50%; /* 오른쪽 프리뷰 50% */
+	 background:#000;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center; /* 프리뷰 중앙 정렬 */
+	 overflow-y: auto;
+	 padding: 40px 20px; /* 주변 여백 추가 */
+	}
 
-.sidebar{
-  width:50%; /* 왼쪽 설정창 50% */
-  background:#101010;
-  overflow-y:auto;
-  border-right:1px solid rgba(255,255,255,0.06);
-  padding:28px;
-  padding-bottom: 120px; /* 저장 버튼 공간 확보 */
-}
+	/* PREVIEW CONTAINER - 실시간 화면이 너무 크지 않게 축소 */
+	.preview > section, 
+	.preview > .footer {
+	 width: 100%;
+	 max-width: 800px; /* 프리뷰 최대 너비 제한 */
+	 transform-origin: top center;
+	 background: #0f0f0f; /* 실제 사이트 배경색과 통일 */
+	 border: 1px solid #333; /* 프리뷰 경계 구분 */
+	 margin-bottom: 0;
+	}
 
-.preview{
-  width:50%; /* 오른쪽 프리뷰 50% */
-  background:#000;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* 프리뷰 중앙 정렬 */
-  overflow-y: auto;
-  padding: 40px 20px; /* 주변 여백 추가 */
-}
+	/* LEFT */
+	.logo{
+	 font-size:30px;
+	 font-weight:700;
+	}
 
-/* PREVIEW CONTAINER - 실시간 화면이 너무 크지 않게 축소 */
-.preview > section, 
-.preview > .footer {
-  width: 100%;
-  max-width: 800px; /* 프리뷰 최대 너비 제한 */
-  transform-origin: top center;
-  background: #0f0f0f; /* 실제 사이트 배경색과 통일 */
-  border: 1px solid #333; /* 프리뷰 경계 구분 */
-  margin-bottom: 0;
-}
+	.sub{
+	 color:#777;
+	 margin-top:6px;
+	 margin-bottom:35px;
+	 font-size:14px;
+	}
 
-/* LEFT */
-.logo{
-  font-size:30px;
-  font-weight:700;
-}
+	.section-card{
+	 background:#171717;
+	 border-radius:20px;
+	 padding:20px;
+	 margin-bottom:22px;
+	 border:1px solid rgba(255,255,255,0.05);
+	}
 
-.sub{
-  color:#777;
-  margin-top:6px;
-  margin-bottom:35px;
-  font-size:14px;
-}
+	.section-title{
+	 font-size:13px;
+	 letter-spacing:1px;
+	 text-transform:uppercase;
+	 color:#f5c15d;
+	 margin-bottom:18px;
+	}
 
-.section-card{
-  background:#171717;
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:22px;
-  border:1px solid rgba(255,255,255,0.05);
-}
+	label{
+	 display:block;
+	 margin-bottom:8px;
+	 color:#bbb;
+	 font-size:13px;
+	}
 
-.section-title{
-  font-size:13px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:#f5c15d;
-  margin-bottom:18px;
-}
+	input,
+	textarea{
+	 width:100%;
+	 background:#0c0c0c;
+	 border:1px solid rgba(255,255,255,0.08);
+	 border-radius:14px;
+	 color:#fff;
+	 padding:14px;
+	 outline:none;
+	 margin-bottom:16px;
+	}
 
-label{
-  display:block;
-  margin-bottom:8px;
-  color:#bbb;
-  font-size:13px;
-}
+	textarea{
+	 min-height:100px;
+	 resize:vertical;
+	}
 
-input,
-textarea{
-  width:100%;
-  background:#0c0c0c;
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:14px;
-  color:#fff;
-  padding:14px;
-  outline:none;
-  margin-bottom:16px;
-}
+	input[type="color"]{
+	 height:60px;
+	}
 
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
+	.preview-image{
+	 width:100%;
+	 height:180px;
+	 object-fit:cover;
+	 border-radius:14px;
+	 margin-bottom:14px;
+	 border:1px solid rgba(255,255,255,0.08);
+	}
 
-input[type="color"]{
-  height:60px;
-}
+	/* BUTTONS */
+	.image-buttons{
+	 display:flex;
+	 gap:8px;
+	 margin-bottom:14px;
+	}
 
-.preview-image{
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius:14px;
-  margin-bottom:14px;
-  border:1px solid rgba(255,255,255,0.08);
-}
+	.image-buttons button{
+	 flex:1;
+	 border:none;
+	 background:#222;
+	 color:#fff;
+	 border-radius:12px;
+	 padding:12px;
+	 cursor:pointer;
+	 font-size:13px;
+	}
 
-/* BUTTONS */
-.image-buttons{
-  display:flex;
-  gap:8px;
-  margin-bottom:14px;
-}
+	.image-buttons button:hover{
+	 background:#333;
+	}
 
-.image-buttons button{
-  flex:1;
-  border:none;
-  background:#222;
-  color:#fff;
-  border-radius:12px;
-  padding:12px;
-  cursor:pointer;
-  font-size:13px;
-}
+	.save-btn{
+	 position:fixed;
+	 left:25px;
+	 bottom:25px;
+	 width:calc(50% - 50px); /* 왼쪽 사이드바 너비에 맞춤 */
+	 border:none;
+	 border-radius:18px;
+	 padding:18px;
+	 background:linear-gradient(135deg,#f5c15d,#ffdc82);
+	 color:#000;
+	 font-size:16px;
+	 font-weight:700;
+	 cursor:pointer;
+	 z-index:999;
+	 box-shadow:0 15px 35px rgba(245,193,93,0.25);
+	}
 
-.image-buttons button:hover{
-  background:#333;
-}
+	.save-status{
+	 position:fixed;
+	 left:25px;
+	 bottom:95px;
+	 background:#171717;
+	 border-radius:12px;
+	 padding:10px 16px;
+	 font-size:13px;
+	 color:#aaa;
+	 z-index:999;
+	}
 
-.save-btn{
-  position:fixed;
-  left:25px;
-  bottom:25px;
-  width:calc(50% - 50px); /* 왼쪽 사이드바 너비에 맞춤 */
-  border:none;
-  border-radius:18px;
-  padding:18px;
-  background:linear-gradient(135deg,#f5c15d,#ffdc82);
-  color:#000;
-  font-size:16px;
-  font-weight:700;
-  cursor:pointer;
-  z-index:999;
-  box-shadow:0 15px 35px rgba(245,193,93,0.25);
-}
+	/* PREVIEW 내부 요소 크기 조정 */
+	.hero{
+	 height:500px; /* 너무 길지 않게 고정 높이 */
+	 position:relative;
+	 display:flex;
+	 align-items:center;
+	 justify-content:center;
+	 text-align:center;
+	}
 
-.save-status{
-  position:fixed;
-  left:25px;
-  bottom:95px;
-  background:#171717;
-  border-radius:12px;
-  padding:10px 16px;
-  font-size:13px;
-  color:#aaa;
-  z-index:999;
-}
+	.hero-bg{
+	 position:absolute;
+	 inset:0;
+	 background-size:cover;
+	 background-position:center;
+	 filter:brightness(0.45);
+	}
 
-/* PREVIEW 내부 요소 크기 조정 */
-.hero{
-  height:500px; /* 너무 길지 않게 고정 높이 */
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
+	.hero-content{
+	 position:relative;
+	 z-index:2;
+	 max-width:90%;
+	 padding:20px;
+	}
 
-.hero-bg{
-  position:absolute;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  filter:brightness(0.45);
-}
+	.hero-logo{
+	 color:#f5c15d;
+	 letter-spacing:4px;
+	 margin-bottom:15px;
+	 font-size: 14px;
+	}
 
-.hero-content{
-  position:relative;
-  z-index:2;
-  max-width:90%;
-  padding:20px;
-}
+	.hero-title{
+	 line-height:1.1;
+	 margin-bottom:20px;
+	 font-size: 40px !important; /* 프리뷰에서는 제목이 너무 커지지 않게 제한 */
+	}
 
-.hero-logo{
-  color:#f5c15d;
-  letter-spacing:4px;
-  margin-bottom:15px;
-  font-size: 14px;
-}
+	.hero-text{
+	 color:#ddd;
+	 font-size:14px;
+	 margin-bottom:25px;
+	}
 
-.hero-title{
-  line-height:1.1;
-  margin-bottom:20px;
-  font-size: 40px !important; /* 프리뷰에서는 제목이 너무 커지지 않게 제한 */
-}
+	.hero-button{
+	 display:inline-block;
+	 padding:12px 30px;
+	 border-radius:50px;
+	 background:#f5c15d;
+	 color:#000;
+	 font-weight:600;
+	 font-size: 13px;
+	}
 
-.hero-text{
-  color:#ddd;
-  font-size:14px;
-  margin-bottom:25px;
-}
+	.section{
+	 padding:60px 30px;
+	}
 
-.hero-button{
-  display:inline-block;
-  padding:12px 30px;
-  border-radius:50px;
-  background:#f5c15d;
-  color:#000;
-  font-weight:600;
-  font-size: 13px;
-}
+	.main-title{
+	 text-align:center;
+	 font-size:28px;
+	 margin-bottom:10px;
+	}
 
-.section{
-  padding:60px 30px;
-}
+	.main-desc{
+	 text-align:center;
+	 color:#aaa;
+	 max-width:100%;
+	 font-size: 14px;
+	 margin:0 auto 30px;
+	}
 
-.main-title{
-  text-align:center;
-  font-size:28px;
-  margin-bottom:10px;
-}
+	.cards{
+	 display:grid;
+	 grid-template-columns:repeat(3,1fr);
+	 gap:15px;
+	}
 
-.main-desc{
-  text-align:center;
-  color:#aaa;
-  max-width:100%;
-  font-size: 14px;
-  margin:0 auto 30px;
-}
+	.card{
+	 background:#111;
+	 border-radius:15px;
+	 overflow:hidden;
+	 border:1px solid rgba(255,255,255,0.06);
+	}
 
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
+	.card img{
+	 width:100%;
+	 height:140px;
+	 object-fit:cover;
+	}
 
-.card{
-  background:#111;
-  border-radius:15px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.06);
-}
+	.card-content{
+	 padding:15px;
+	}
 
-.card img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-}
+	.card-content h3{
+	 font-size:16px;
+	 margin-bottom:8px;
+	}
 
-.card-content{
-  padding:15px;
-}
+	.card-content p{
+	 color:#aaa;
+	 line-height:1.5;
+	 font-size: 12px;
+	}
 
-.card-content h3{
-  font-size:16px;
-  margin-bottom:8px;
-}
+	.contact{
+	 text-align:center;
+	}
 
-.card-content p{
-  color:#aaa;
-  line-height:1.5;
-  font-size: 12px;
-}
+	.contact-buttons{
+	 margin-top:20px;
+	 display:flex;
+	 justify-content:center;
+	 gap:10px;
+	}
 
-.contact{
-  text-align:center;
-}
+	.contact-buttons a{
+	 text-decoration:none;
+	 color:#fff;
+	 background:#171717;
+	 padding:10px 20px;
+	 border-radius:50px;
+	 border:1px solid rgba(255,255,255,0.06);
+	 font-size: 12px;
+	}
 
-.contact-buttons{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-}
+	.footer{
+	 text-align:center;
+	 color:#666;
+	 padding:30px;
+	 font-size: 12px;
+	 border-top:1px solid rgba(255,255,255,0.05);
+	}
 
-.contact-buttons a{
-  text-decoration:none;
-  color:#fff;
-  background:#171717;
-  padding:10px 20px;
-  border-radius:50px;
-  border:1px solid rgba(255,255,255,0.06);
-  font-size: 12px;
-}
+	/* POPUP */
+	.popup{
+	 display:none;
+	 position:fixed;
+	 inset:0;
+	 background:rgba(0,0,0,0.75);
+	 z-index:99999;
+	}
 
-.footer{
-  text-align:center;
-  color:#666;
-  padding:30px;
-  font-size: 12px;
-  border-top:1px solid rgba(255,255,255,0.05);
-}
+	.popup-box{
+	 width:900px;
+	 max-width:95%;
+	 max-height:90vh;
+	 overflow-y:auto;
+	 background:#111;
+	 margin:40px auto;
+	 border-radius:24px;
+	 padding:24px;
+	}
 
-/* POPUP */
-.popup{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  z-index:99999;
-}
+	.popup-header{
+	 display:flex;
+	 justify-content:space-between;
+	 align-items:center;
+	 margin-bottom:24px;
+	}
 
-.popup-box{
-  width:900px;
-  max-width:95%;
-  max-height:90vh;
-  overflow-y:auto;
-  background:#111;
-  margin:40px auto;
-  border-radius:24px;
-  padding:24px;
-}
+	.popup-title{
+	 font-size:22px;
+	 font-weight:600;
+	}
 
-.popup-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:24px;
-}
+	.close-btn{
+	 background:#222;
+	 border:none;
+	 color:#fff;
+	 width:40px;
+	 height:40px;
+	 border-radius:50%;
+	 cursor:pointer;
+	}
 
-.popup-title{
-  font-size:22px;
-  font-weight:600;
-}
+	.image-grid{
+	 display:grid;
+	 grid-template-columns:repeat(4,1fr);
+	 gap:16px;
+	}
 
-.close-btn{
-  background:#222;
-  border:none;
-  color:#fff;
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  cursor:pointer;
-}
+	.image-item{
+	 border:3px solid transparent;
+	 border-radius:16px;
+	 overflow:hidden;
+	 cursor:pointer;
+	}
 
-.image-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:16px;
-}
+	.image-item.selected{
+	 border-color:#f5c15d;
+	}
 
-.image-item{
-  border:3px solid transparent;
-  border-radius:16px;
-  overflow:hidden;
-  cursor:pointer;
-}
+	.image-item img{
+	 width:100%;
+	 height:170px;
+	 object-fit:cover;
+	}
 
-.image-item.selected{
-  border-color:#f5c15d;
-}
+	.popup-actions{
+	 display:flex;
+	 gap:10px;
+	 margin-bottom:20px;
+	}
 
-.image-item img{
-  width:100%;
-  height:170px;
-  object-fit:cover;
-}
+	.popup-actions button{
+	 border:none;
+	 background:#222;
+	 color:#fff;
+	 padding:12px 18px;
+	 border-radius:12px;
+	 cursor:pointer;
+	}
 
-.popup-actions{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
+	.url-input{
+	 display:none;
+	 margin-bottom:18px;
+	}
 
-.popup-actions button{
-  border:none;
-  background:#222;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:12px;
-  cursor:pointer;
-}
+	/* MOBILE */
+	@media(max-width:1100px){
+	 body{ overflow:auto; }
+	 .wrapper{ flex-direction:column; height:auto; }
+	 .sidebar, .preview{ width:100%; }
+	 .cards{ grid-template-columns:1fr; }
+	 .save-btn{ width:calc(100% - 50px); left: 25px; }
+	}
 
-.url-input{
-  display:none;
-  margin-bottom:18px;
-}
-
-/* MOBILE */
-@media(max-width:1100px){
-  body{ overflow:auto; }
-  .wrapper{ flex-direction:column; height:auto; }
-  .sidebar, .preview{ width:100%; }
-  .cards{ grid-template-columns:1fr; }
-  .save-btn{ width:calc(100% - 50px); left: 25px; }
-}
-
-</style>
+	</style>
 </head>
-
 <body>
-
-<script>
-if(localStorage.getItem("loggedIn") !== "true"){
-  location.href="/login.html";
-}
-</script>
-
-<div class="wrapper">
-
-  <div class="sidebar">
-
-    <div class="logo">JUJU ADMIN</div>
-    <div class="sub">Premium Landing Page Builder</div>
-
-    <div class="section-card">
-      <div class="section-title">Hero Section</div>
-      <label>로고</label>
-      <input id="logo">
-      <label>메인 제목</label>
-      <textarea id="heroTitle"></textarea>
-      <label>메인 설명</label>
-      <textarea id="heroText"></textarea>
-      <label>버튼 텍스트</label>
-      <input id="heroButton">
-      <label>제목 크기</label>
-      <input id="heroTitleSize" type="number">
-      <label>제목 색상</label>
-      <input id="heroTitleColor" type="color">
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Hero Background</div>
-      <img id="heroImagePreview" class="preview-image">
-      <div class="image-buttons">
-        <button onclick="openPopup('heroImage')">Choose Default</button>
-        <button onclick="openUrlBox('heroImage')">Choose From URL</button>
-      </div>
-      <input id="heroImage">
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Services</div>
-      <input id="serviceTitle">
-      <textarea id="serviceDesc"></textarea>
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Card 1</div>
-      <img id="card1ImagePreview" class="preview-image">
-      <div class="image-buttons">
-        <button onclick="openPopup('card1Image')">Choose Default</button>
-        <button onclick="openUrlBox('card1Image')">Choose From URL</button>
-      </div>
-      <input id="card1Image">
-      <input id="card1Title">
-      <textarea id="card1Text"></textarea>
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Card 2</div>
-      <img id="card2ImagePreview" class="preview-image">
-      <div class="image-buttons">
-        <button onclick="openPopup('card2Image')">Choose Default</button>
-        <button onclick="openUrlBox('card2Image')">Choose From URL</button>
-      </div>
-      <input id="card2Image">
-      <input id="card2Title">
-      <textarea id="card2Text"></textarea>
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Card 3</div>
-      <img id="card3ImagePreview" class="preview-image">
-      <div class="image-buttons">
-        <button onclick="openPopup('card3Image')">Choose Default</button>
-        <button onclick="openUrlBox('card3Image')">Choose From URL</button>
-      </div>
-      <input id="card3Image">
-      <input id="card3Title">
-      <textarea id="card3Text"></textarea>
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Contact</div>
-      <input id="contactTitle">
-      <textarea id="contactText"></textarea>
-      <input id="telegramLink">
-      <input id="telegramId">
-      <input id="kakaoLink">
-      <input id="kakaoId">
-    </div>
-
-    <div class="section-card">
-      <div class="section-title">Footer</div>
-      <input id="footerText">
-    </div>
-
-  </div>
-
-  <div class="preview">
-
-    <section class="hero">
-      <div class="hero-bg" id="previewHeroBg"></div>
-      <div class="hero-content">
-        <div class="hero-logo" id="previewLogo"></div>
-        <h1 class="hero-title" id="previewHeroTitle"></h1>
-        <div class="hero-text" id="previewHeroText"></div>
-        <div class="hero-button" id="previewHeroButton"></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2 class="main-title" id="previewServiceTitle"></h2>
-      <div class="main-desc" id="previewServiceDesc"></div>
-      <div class="cards">
-        <div class="card">
-          <img id="previewCard1Image">
-          <div class="card-content">
-            <h3 id="previewCard1Title"></h3>
-            <p id="previewCard1Text"></p>
-          </div>
-        </div>
-        <div class="card">
-          <img id="previewCard2Image">
-          <div class="card-content">
-            <h3 id="previewCard2Title"></h3>
-            <p id="previewCard2Text"></p>
-          </div>
-        </div>
-        <div class="card">
-          <img id="previewCard3Image">
-          <div class="card-content">
-            <h3 id="previewCard3Title"></h3>
-            <p id="previewCard3Text"></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section contact">
-      <h2 class="main-title" id="previewContactTitle"></h2>
-      <div class="main-desc" id="previewContactText"></div>
-      <div class="contact-buttons">
-        <a id="previewTelegram" target="_blank">Telegram</a>
-        <a id="previewKakao" target="_blank">KakaoTalk</a>
-      </div>
-    </section>
-
-    <div class="footer" id="previewFooter"></div>
-
-  </div>
-
-</div>
-
-<div class="popup" id="popup">
-  <div class="popup-box">
-    <div class="popup-header">
-      <div class="popup-title">Image Manager</div>
-      <button class="close-btn" onclick="closePopup()">✕</button>
-    </div>
-    <div class="popup-actions">
-      <button onclick="document.getElementById('uploadInput').click()">Upload</button>
-      <button onclick="toggleUrlInput()">URL</button>
-      <button onclick="applySelectedImage()">Save</button>
-    </div>
-    <input type="file" id="uploadInput" style="display:none" onchange="uploadImage(event)">
-    <div class="url-input" id="urlInputBox">
-      <input id="popupUrlInput" placeholder="https://image.jpg">
-      <button onclick="applyUrlImage()">Apply URL</button>
-    </div>
-    <div class="image-grid" id="imageGrid"></div>
-  </div>
-</div>
-
-<div class="save-status" id="saveStatus">저장되지 않음</div>
-<button class="save-btn" id="saveBtn">저장하기</button>
-
-<script>
-// 기존 스크립트 그대로 유지 (수정 없음)
-let data={};
-let currentImageField=null;
-let selectedImage=null;
-
-const fields=[
-"logo", "heroImage", "heroTitle", "heroText", "heroButton", "heroTitleSize", "heroTitleColor",
-"serviceTitle", "serviceDesc", "card1Title", "card1Text", "card1Image", "card2Title", "card2Text", "card2Image", "card3Title", "card3Text", "card3Image",
-"contactTitle", "contactText", "telegramLink", "telegramId", "kakaoLink", "kakaoId", "footerText"
-];
-
-async function loadData(){
-  const res=await fetch("/content/site.json");
-  data=await res.json();
-  fields.forEach(id=>{
-    if(document.getElementById(id)){
-      document.getElementById(id).value=data[id]||"";
-    }
-  });
-  renderPreview();
-}
-
-function renderPreview(){
-  // 이미지 요소들을 안전하게 참조하기 위해 getElementById 사용
-  const hPreview = document.getElementById("heroImagePreview");
-  const c1Preview = document.getElementById("card1ImagePreview");
-  const c2Preview = document.getElementById("card2ImagePreview");
-  const c3Preview = document.getElementById("card3ImagePreview");
-
-  if(hPreview) hPreview.src = data.heroImage || "";
-  if(c1Preview) c1Preview.src = data.card1Image || "";
-  if(c2Preview) c2Preview.src = data.card2Image || "";
-  if(c3Preview) c3Preview.src = data.card3Image || "";
-
-  if(document.getElementById("previewHeroBg")) {
-    document.getElementById("previewHeroBg").style.backgroundImage = `url('${data.heroImage}')`;
-  }
-  
-  if(document.getElementById("previewLogo")) document.getElementById("previewLogo").innerHTML = data.logo || "";
-  if(document.getElementById("previewHeroTitle")) {
-    document.getElementById("previewHeroTitle").innerHTML = data.heroTitle || "";
-    document.getElementById("previewHeroTitle").style.color = data.heroTitleColor || "#fff";
-    // 누락되었던 제목 크기 반영 코드 추가
-    document.getElementById("previewHeroTitle").style.fontSize = (data.heroTitleSize || 40) + "px";
-  }
-  
-  if(document.getElementById("previewHeroText")) document.getElementById("previewHeroText").innerHTML = data.heroText || "";
-  if(document.getElementById("previewHeroButton")) document.getElementById("previewHeroButton").innerHTML = data.heroButton || "";
-  if(document.getElementById("previewServiceTitle")) document.getElementById("previewServiceTitle").innerHTML = data.serviceTitle || "";
-  if(document.getElementById("previewServiceDesc")) document.getElementById("previewServiceDesc").innerHTML = data.serviceDesc || "";
-  
-  if(document.getElementById("previewCard1Image")) document.getElementById("previewCard1Image").src = data.card1Image || "";
-  if(document.getElementById("previewCard1Title")) document.getElementById("previewCard1Title").innerHTML = data.card1Title || "";
-  if(document.getElementById("previewCard1Text")) document.getElementById("previewCard1Text").innerHTML = data.card1Text || "";
-  
-  if(document.getElementById("previewCard2Image")) document.getElementById("previewCard2Image").src = data.card2Image || "";
-  if(document.getElementById("previewCard2Title")) document.getElementById("previewCard2Title").innerHTML = data.card2Title || "";
-  if(document.getElementById("previewCard2Text")) document.getElementById("previewCard2Text").innerHTML = data.card2Text || "";
-  
-  if(document.getElementById("previewCard3Image")) document.getElementById("previewCard3Image").src = data.card3Image || "";
-  if(document.getElementById("previewCard3Title")) document.getElementById("previewCard3Title").innerHTML = data.card3Title || "";
-  if(document.getElementById("previewCard3Text")) document.getElementById("previewCard3Text").innerHTML = data.card3Text || "";
-  
-  if(document.getElementById("previewContactTitle")) document.getElementById("previewContactTitle").innerHTML = data.contactTitle || "";
-  if(document.getElementById("previewContactText")) document.getElementById("previewContactText").innerHTML = data.contactText || "";
-  
-  if(document.getElementById("previewTelegram")) {
-    document.getElementById("previewTelegram").href = data.telegramLink || "#";
-    document.getElementById("previewTelegram").innerHTML = data.telegramId || "Telegram";
-  }
-  if(document.getElementById("previewKakao")) {
-    document.getElementById("previewKakao").href = data.kakaoLink || "#";
-    document.getElementById("previewKakao").innerHTML = data.kakaoId || "Kakao";
-  }
-  if(document.getElementById("previewFooter")) document.getElementById("previewFooter").innerHTML = data.footerText || "";
-}
-
-fields.forEach(id=>{
-  document.addEventListener("input",e=>{
-    if(e.target.id===id){
-      data[id]=e.target.value;
-      renderPreview();
-      saveStatus.innerHTML="저장되지 않음";
-    }
-  });
-});
-
-async function openPopup(field){ currentImageField=field; popup.style.display="block"; loadImages(); }
-async function openPopup(field) { 
-    currentImageField = field; 
-    const pop = document.getElementById("popup");
-    if(pop) pop.style.display = "block"; 
-    loadImages(); 
-}
-
-function closePopup() { 
-    const pop = document.getElementById("popup");
-    if(pop) pop.style.display = "none"; 
-}
-
-async function loadImages() {
-    const grid = document.getElementById("imageGrid");
-    if (!grid) return;
-    
-    grid.innerHTML = "<p style='padding:20px; color:#f5c15d;'>목록 불러오는 중...</p>";
-
-    try {
-        const res = await fetch("/api/images");
-        if (!res.ok) throw new Error("서버 응답 오류");
-        const images = await res.json();
-        
-        grid.innerHTML = "";
-        if (images.length === 0) {
-            grid.innerHTML = "<p style='padding:20px; color:#666;'>저장된 이미지가 없습니다.</p>";
-            return;
-        }
-
-        images.forEach(img => {
-            const div = document.createElement("div");
-            div.className = "image-item";
-            div.innerHTML = `<img src="${img}">`;
-            div.onclick = () => {
-                document.querySelectorAll(".image-item").forEach(i => i.classList.remove("selected"));
-                div.classList.add("selected");
-                selectedImage = img;
-            };
-            grid.appendChild(div);
-        });
-    } catch (err) {
-        grid.innerHTML = "<p style='padding:20px; color:#ff4d4d;'>이미지 목록을 가져오지 못했습니다.</p>";
-        console.error("목록 로드 실패:", err);
-    }
-}
-
-async function uploadImage(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const status = document.getElementById("saveStatus");
-    if (status) status.innerHTML = "업로드 중...";
-
-    const form = new FormData();
-    form.append("file", file);
-
-    try {
-        const res = await fetch("/api/upload", { 
-            method: "POST", 
-            body: form 
-        });
-        
-        if (!res.ok) throw new Error("업로드 실패");
-        
-        const result = await res.json();
-        // 업로드 성공 후 목록 새로고침
-        await loadImages(); 
-        if (status) status.innerHTML = "업로드 완료 ✓";
-    } catch (err) {
-        alert("업로드에 실패했습니다.");
-        if (status) status.innerHTML = "업로드 실패";
-    }
-}
-
-saveBtn.onclick=async()=>{
-  saveStatus.innerHTML="저장 중...";
-  await fetch("/api/update",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify(data)
-  });
-  saveStatus.innerHTML="저장 완료 ✓";
-};
-<script>
-
-function toggleUrlInput(){
-
-  const box=document.getElementById("urlInputBox");
-
-  if(box.style.display==="block"){
-    box.style.display="none";
-  }else{
-    box.style.display="block";
-  }
-
-}
-
-function applyUrlImage(){
-
-  const input=document.getElementById("popupUrlInput");
-
-  if(!input.value) return;
-
-  data[currentImageField]=input.value;
-
-  const target=document.getElementById(currentImageField);
-
-  if(target){
-    target.value=input.value;
-  }
-
-  renderPreview();
-
-  closePopup();
-
-}
-
-function applySelectedImage(){
-
-  if(!selectedImage) return;
-
-  data[currentImageField]=selectedImage;
-
-  const target=document.getElementById(currentImageField);
-
-  if(target){
-    target.value=selectedImage;
-  }
-
-  renderPreview();
-
-  closePopup();
-
-}
-
-</script>
-
-  loadData();
-
-</script>
-
+	<script>
+	if(localStorage.getItem("loggedIn") !== "true"){
+	 location.href="/login.html";
+	}
+	</script>
+	<div class="wrapper">
+		<div class="sidebar">
+			<div class="logo">
+				JUJU ADMIN
+			</div>
+			<div class="sub">
+				Premium Landing Page Builder
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Hero Section
+				</div><label>로고</label> <input id="logo"> <label>메인 제목</label> 
+				<textarea id="heroTitle"></textarea> <label>메인 설명</label> 
+				<textarea id="heroText"></textarea> <label>버튼 텍스트</label> <input id="heroButton"> <label>제목 크기</label> <input id="heroTitleSize" type="number"> <label>제목 색상</label> <input id="heroTitleColor" type="color">
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Hero Background
+				</div><img class="preview-image" id="heroImagePreview">
+				<div class="image-buttons">
+					<button onclick="openPopup('heroImage')">Choose Default</button> <button onclick="openUrlBox('heroImage')">Choose From URL</button>
+				</div><input id="heroImage">
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Services
+				</div><input id="serviceTitle"> 
+				<textarea id="serviceDesc"></textarea>
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Card 1
+				</div><img class="preview-image" id="card1ImagePreview">
+				<div class="image-buttons">
+					<button onclick="openPopup('card1Image')">Choose Default</button> <button onclick="openUrlBox('card1Image')">Choose From URL</button>
+				</div><input id="card1Image"> <input id="card1Title"> 
+				<textarea id="card1Text"></textarea>
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Card 2
+				</div><img class="preview-image" id="card2ImagePreview">
+				<div class="image-buttons">
+					<button onclick="openPopup('card2Image')">Choose Default</button> <button onclick="openUrlBox('card2Image')">Choose From URL</button>
+				</div><input id="card2Image"> <input id="card2Title"> 
+				<textarea id="card2Text"></textarea>
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Card 3
+				</div><img class="preview-image" id="card3ImagePreview">
+				<div class="image-buttons">
+					<button onclick="openPopup('card3Image')">Choose Default</button> <button onclick="openUrlBox('card3Image')">Choose From URL</button>
+				</div><input id="card3Image"> <input id="card3Title"> 
+				<textarea id="card3Text"></textarea>
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Contact
+				</div><input id="contactTitle"> 
+				<textarea id="contactText"></textarea> <input id="telegramLink"> <input id="telegramId"> <input id="kakaoLink"> <input id="kakaoId">
+			</div>
+			<div class="section-card">
+				<div class="section-title">
+					Footer
+				</div><input id="footerText">
+			</div>
+		</div>
+		<div class="preview">
+			<section class="hero">
+				<div class="hero-bg" id="previewHeroBg"></div>
+				<div class="hero-content">
+					<div class="hero-logo" id="previewLogo"></div>
+					<h1 class="hero-title" id="previewHeroTitle"></h1>
+					<div class="hero-text" id="previewHeroText"></div>
+					<div class="hero-button" id="previewHeroButton"></div>
+				</div>
+			</section>
+			<section class="section">
+				<h2 class="main-title" id="previewServiceTitle"></h2>
+				<div class="main-desc" id="previewServiceDesc"></div>
+				<div class="cards">
+					<div class="card">
+						<img id="previewCard1Image">
+						<div class="card-content">
+							<h3 id="previewCard1Title"></h3>
+							<p id="previewCard1Text"></p>
+						</div>
+					</div>
+					<div class="card">
+						<img id="previewCard2Image">
+						<div class="card-content">
+							<h3 id="previewCard2Title"></h3>
+							<p id="previewCard2Text"></p>
+						</div>
+					</div>
+					<div class="card">
+						<img id="previewCard3Image">
+						<div class="card-content">
+							<h3 id="previewCard3Title"></h3>
+							<p id="previewCard3Text"></p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="section contact">
+				<h2 class="main-title" id="previewContactTitle"></h2>
+				<div class="main-desc" id="previewContactText"></div>
+				<div class="contact-buttons">
+					<a id="previewTelegram" target="_blank">Telegram</a> <a id="previewKakao" target="_blank">KakaoTalk</a>
+				</div>
+			</section>
+			<div class="footer" id="previewFooter"></div>
+		</div>
+	</div>
+	<div class="popup" id="popup">
+		<div class="popup-box">
+			<div class="popup-header">
+				<div class="popup-title">
+					Image Manager
+				</div><button class="close-btn" onclick="closePopup()">✕</button>
+			</div>
+			<div class="popup-actions">
+				<button onclick="document.getElementById('uploadInput').click()">Upload</button> <button onclick="toggleUrlInput()">URL</button> <button onclick="applySelectedImage()">Save</button>
+			</div><input id="uploadInput" onchange="uploadImage(event)" style="display:none" type="file">
+			<div class="url-input" id="urlInputBox">
+				<input id="popupUrlInput" placeholder="https://image.jpg"> <button onclick="applyUrlImage()">Apply URL</button>
+			</div>
+			<div class="image-grid" id="imageGrid"></div>
+		</div>
+	</div>
+	<div class="save-status" id="saveStatus">
+		저장되지 않음
+	</div><button class="save-btn" id="saveBtn">저장하기</button> 
+	<script>
+	// 기존 스크립트 그대로 유지 (수정 없음)
+	let data={};
+	let currentImageField=null;
+	let selectedImage=null;
+
+	const fields=[
+	"logo", "heroImage", "heroTitle", "heroText", "heroButton", "heroTitleSize", "heroTitleColor",
+	"serviceTitle", "serviceDesc", "card1Title", "card1Text", "card1Image", "card2Title", "card2Text", "card2Image", "card3Title", "card3Text", "card3Image",
+	"contactTitle", "contactText", "telegramLink", "telegramId", "kakaoLink", "kakaoId", "footerText"
+	];
+
+	async function loadData(){
+	 const res=await fetch("/content/site.json");
+	 data=await res.json();
+	 fields.forEach(id=>{
+	   if(document.getElementById(id)){
+	     document.getElementById(id).value=data[id]||"";
+	   }
+	 });
+	 renderPreview();
+	}
+
+	function renderPreview(){
+	 // 이미지 요소들을 안전하게 참조하기 위해 getElementById 사용
+	 const hPreview = document.getElementById("heroImagePreview");
+	 const c1Preview = document.getElementById("card1ImagePreview");
+	 const c2Preview = document.getElementById("card2ImagePreview");
+	 const c3Preview = document.getElementById("card3ImagePreview");
+
+	 if(hPreview) hPreview.src = data.heroImage || "";
+	 if(c1Preview) c1Preview.src = data.card1Image || "";
+	 if(c2Preview) c2Preview.src = data.card2Image || "";
+	 if(c3Preview) c3Preview.src = data.card3Image || "";
+
+	 if(document.getElementById("previewHeroBg")) {
+	   document.getElementById("previewHeroBg").style.backgroundImage = `url('${data.heroImage}')`;
+	 }
+	 
+	 if(document.getElementById("previewLogo")) document.getElementById("previewLogo").innerHTML = data.logo || "";
+	 if(document.getElementById("previewHeroTitle")) {
+	   document.getElementById("previewHeroTitle").innerHTML = data.heroTitle || "";
+	   document.getElementById("previewHeroTitle").style.color = data.heroTitleColor || "#fff";
+	   // 누락되었던 제목 크기 반영 코드 추가
+	   document.getElementById("previewHeroTitle").style.fontSize = (data.heroTitleSize || 40) + "px";
+	 }
+	 
+	 if(document.getElementById("previewHeroText")) document.getElementById("previewHeroText").innerHTML = data.heroText || "";
+	 if(document.getElementById("previewHeroButton")) document.getElementById("previewHeroButton").innerHTML = data.heroButton || "";
+	 if(document.getElementById("previewServiceTitle")) document.getElementById("previewServiceTitle").innerHTML = data.serviceTitle || "";
+	 if(document.getElementById("previewServiceDesc")) document.getElementById("previewServiceDesc").innerHTML = data.serviceDesc || "";
+	 
+	 if(document.getElementById("previewCard1Image")) document.getElementById("previewCard1Image").src = data.card1Image || "";
+	 if(document.getElementById("previewCard1Title")) document.getElementById("previewCard1Title").innerHTML = data.card1Title || "";
+	 if(document.getElementById("previewCard1Text")) document.getElementById("previewCard1Text").innerHTML = data.card1Text || "";
+	 
+	 if(document.getElementById("previewCard2Image")) document.getElementById("previewCard2Image").src = data.card2Image || "";
+	 if(document.getElementById("previewCard2Title")) document.getElementById("previewCard2Title").innerHTML = data.card2Title || "";
+	 if(document.getElementById("previewCard2Text")) document.getElementById("previewCard2Text").innerHTML = data.card2Text || "";
+	 
+	 if(document.getElementById("previewCard3Image")) document.getElementById("previewCard3Image").src = data.card3Image || "";
+	 if(document.getElementById("previewCard3Title")) document.getElementById("previewCard3Title").innerHTML = data.card3Title || "";
+	 if(document.getElementById("previewCard3Text")) document.getElementById("previewCard3Text").innerHTML = data.card3Text || "";
+	 
+	 if(document.getElementById("previewContactTitle")) document.getElementById("previewContactTitle").innerHTML = data.contactTitle || "";
+	 if(document.getElementById("previewContactText")) document.getElementById("previewContactText").innerHTML = data.contactText || "";
+	 
+	 if(document.getElementById("previewTelegram")) {
+	   document.getElementById("previewTelegram").href = data.telegramLink || "#";
+	   document.getElementById("previewTelegram").innerHTML = data.telegramId || "Telegram";
+	 }
+	 if(document.getElementById("previewKakao")) {
+	   document.getElementById("previewKakao").href = data.kakaoLink || "#";
+	   document.getElementById("previewKakao").innerHTML = data.kakaoId || "Kakao";
+	 }
+	 if(document.getElementById("previewFooter")) document.getElementById("previewFooter").innerHTML = data.footerText || "";
+	}
+
+	fields.forEach(id=>{
+	 document.addEventListener("input",e=>{
+	   if(e.target.id===id){
+	     data[id]=e.target.value;
+	     renderPreview();
+	     saveStatus.innerHTML="저장되지 않음";
+	   }
+	 });
+	});
+
+	async function openPopup(field){ currentImageField=field; popup.style.display="block"; loadImages(); }
+	async function openPopup(field) { 
+	   currentImageField = field; 
+	   const pop = document.getElementById("popup");
+	   if(pop) pop.style.display = "block"; 
+	   loadImages(); 
+	}
+
+	function closePopup() { 
+	   const pop = document.getElementById("popup");
+	   if(pop) pop.style.display = "none"; 
+	}
+
+	async function loadImages() {
+	   const grid = document.getElementById("imageGrid");
+	   if (!grid) return;
+	   
+	   grid.innerHTML = "<p style='padding:20px; color:#f5c15d;'>목록 불러오는 중...<\/p>";
+
+	   try {
+	       const res = await fetch("/api/images");
+	       if (!res.ok) throw new Error("서버 응답 오류");
+	       const images = await res.json();
+	       
+	       grid.innerHTML = "";
+	       if (images.length === 0) {
+	           grid.innerHTML = "<p style='padding:20px; color:#666;'>저장된 이미지가 없습니다.<\/p>";
+	           return;
+	       }
+
+	       images.forEach(img => {
+	           const div = document.createElement("div");
+	           div.className = "image-item";
+	           div.innerHTML = `<img src="${img}">`;
+	           div.onclick = () => {
+	               document.querySelectorAll(".image-item").forEach(i => i.classList.remove("selected"));
+	               div.classList.add("selected");
+	               selectedImage = img;
+	           };
+	           grid.appendChild(div);
+	       });
+	   } catch (err) {
+	       grid.innerHTML = "<p style='padding:20px; color:#ff4d4d;'>이미지 목록을 가져오지 못했습니다.<\/p>";
+	       console.error("목록 로드 실패:", err);
+	   }
+	}
+
+	async function uploadImage(e) {
+	   const file = e.target.files[0];
+	   if (!file) return;
+
+	   const status = document.getElementById("saveStatus");
+	   if (status) status.innerHTML = "업로드 중...";
+
+	   const form = new FormData();
+	   form.append("file", file);
+
+	   try {
+	       const res = await fetch("/api/upload", { 
+	           method: "POST", 
+	           body: form 
+	       });
+	       
+	       if (!res.ok) throw new Error("업로드 실패");
+	       
+	       const result = await res.json();
+	       // 업로드 성공 후 목록 새로고침
+	       await loadImages(); 
+	       if (status) status.innerHTML = "업로드 완료 ✓";
+	   } catch (err) {
+	       alert("업로드에 실패했습니다.");
+	       if (status) status.innerHTML = "업로드 실패";
+	   }
+	}
+
+	saveBtn.onclick=async()=>{
+	 saveStatus.innerHTML="저장 중...";
+	 await fetch("/api/update",{
+	   method:"POST",
+	   headers:{ "Content-Type":"application/json" },
+	   body:JSON.stringify(data)
+	 });
+	 saveStatus.innerHTML="저장 완료 ✓";
+	};
+	<script>
+
+	function toggleUrlInput(){
+
+	 const box=document.getElementById("urlInputBox");
+
+	 if(box.style.display==="block"){
+	   box.style.display="none";
+	 }else{
+	   box.style.display="block";
+	 }
+
+	}
+
+	function applyUrlImage(){
+
+	 const input=document.getElementById("popupUrlInput");
+
+	 if(!input.value) return;
+
+	 data[currentImageField]=input.value;
+
+	 const target=document.getElementById(currentImageField);
+
+	 if(target){
+	   target.value=input.value;
+	 }
+
+	 renderPreview();
+
+	 closePopup();
+
+	}
+
+	function applySelectedImage(){
+
+	 if(!selectedImage) return;
+
+	 data[currentImageField]=selectedImage;
+
+	 const target=document.getElementById(currentImageField);
+
+	 if(target){
+	   target.value=selectedImage;
+	 }
+
+	 renderPreview();
+
+	 closePopup();
+
+	}
+
+	</script> loadData(); 
 </body>
 </html>
