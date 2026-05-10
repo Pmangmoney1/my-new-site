@@ -12,7 +12,7 @@ collections:
     files:
       - label: "메인 설정"
         name: "main"
-        file: "/content/site.json"
+        file: "content/site.json"
         fields:
           - { label: "로고", name: "logo", widget: "string" }
           - { label: "메인 배경 이미지", name: "heroImage", widget: "image" }
