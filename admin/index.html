@@ -642,63 +642,79 @@ Apply URL
 
 <script>
 
-<script>
-
 let data = {};
+
 let currentImageField = null;
+
 let selectedImage = null;
 
 const fields = [
-  "logo",
-  "heroImage",
-  "heroTitle",
-  "heroText",
-  "heroButton",
-  "heroTitleSize",
-  "heroTitleColor",
-  "serviceTitle",
-  "serviceDesc",
-  "card1Title",
-  "card1Text",
-  "card1Image",
-  "card2Title",
-  "card2Text",
-  "card2Image",
-  "card3Title",
-  "card3Text",
-  "card3Image",
-  "contactTitle",
-  "contactText",
-  "telegramLink",
-  "telegramId",
-  "kakaoLink",
-  "kakaoId",
-  "footerText"
+
+"logo",
+"heroImage",
+"heroTitle",
+"heroText",
+"heroButton",
+"heroTitleSize",
+"heroTitleColor",
+
+"serviceTitle",
+"serviceDesc",
+
+"card1Title",
+"card1Text",
+"card1Image",
+
+"card2Title",
+"card2Text",
+"card2Image",
+
+"card3Title",
+"card3Text",
+"card3Image",
+
+"contactTitle",
+"contactText",
+
+"telegramLink",
+"telegramId",
+
+"kakaoLink",
+"kakaoId",
+
+"footerText"
+
 ];
 
-async function loadData() {
+async function loadData(){
 
-  try {
+  try{
 
-    const res = await fetch("/content/site.json");
+    const res =
+      await fetch("/content/site.json");
 
     data = await res.json();
 
-    fields.forEach(id => {
+    fields.forEach(id=>{
 
-      const el = document.getElementById(id);
+      const el =
+        document.getElementById(id);
 
       if(el){
+
         el.value = data[id] || "";
+
       }
 
     });
 
     renderPreview();
 
-  } catch(err){
+  }catch(err){
 
     console.error(err);
+
+    alert("site.json 로드 실패");
 
   }
 
@@ -706,65 +722,80 @@ async function loadData() {
 
 function renderPreview(){
 
-  const setHTML = (id,val="") => {
+  const setHTML = (id,val="")=>{
 
-    const el = document.getElementById(id);
+    const el =
+      document.getElementById(id);
 
-    if(el){
-      el.innerHTML = val;
-    }
-
-  };
-
-  const setSRC = (id,val="") => {
-
-    const el = document.getElementById(id);
-
-    if(el){
-      el.src = val;
-    }
+    if(el) el.innerHTML = val;
 
   };
 
-  setSRC("heroImagePreview", data.heroImage);
-  setSRC("card1ImagePreview", data.card1Image);
-  setSRC("card2ImagePreview", data.card2Image);
-  setSRC("card3ImagePreview", data.card3Image);
+  const setSRC = (id,val="")=>{
 
-  setSRC("previewCard1Image", data.card1Image);
-  setSRC("previewCard2Image", data.card2Image);
-  setSRC("previewCard3Image", data.card3Image);
+    const el =
+      document.getElementById(id);
 
-  const bg = document.getElementById("previewHeroBg");
+    if(el) el.src = val;
+
+  };
+
+  setSRC("heroImagePreview",data.heroImage);
+
+  setSRC("card1ImagePreview",data.card1Image);
+
+  setSRC("card2ImagePreview",data.card2Image);
+
+  setSRC("card3ImagePreview",data.card3Image);
+
+  setSRC("previewCard1Image",data.card1Image);
+
+  setSRC("previewCard2Image",data.card2Image);
+
+  setSRC("previewCard3Image",data.card3Image);
+
+  const bg =
+    document.getElementById("previewHeroBg");
 
   if(bg){
+
     bg.style.backgroundImage =
       `url('${data.heroImage || ""}')`;
+
   }
 
-  setHTML("previewLogo", data.logo);
-  setHTML("previewHeroTitle", data.heroTitle);
-  setHTML("previewHeroText", data.heroText);
-  setHTML("previewHeroButton", data.heroButton);
+  setHTML("previewLogo",data.logo);
 
-  setHTML("previewServiceTitle", data.serviceTitle);
-  setHTML("previewServiceDesc", data.serviceDesc);
+  setHTML("previewHeroTitle",data.heroTitle);
 
-  setHTML("previewCard1Title", data.card1Title);
-  setHTML("previewCard1Text", data.card1Text);
+  setHTML("previewHeroText",data.heroText);
 
-  setHTML("previewCard2Title", data.card2Title);
-  setHTML("previewCard2Text", data.card2Text);
+  setHTML("previewHeroButton",data.heroButton);
 
-  setHTML("previewCard3Title", data.card3Title);
-  setHTML("previewCard3Text", data.card3Text);
+  setHTML("previewServiceTitle",data.serviceTitle);
 
-  setHTML("previewContactTitle", data.contactTitle);
-  setHTML("previewContactText", data.contactText);
+  setHTML("previewServiceDesc",data.serviceDesc);
 
-  setHTML("previewFooter", data.footerText);
+  setHTML("previewCard1Title",data.card1Title);
 
-  const title = document.getElementById("previewHeroTitle");
+  setHTML("previewCard1Text",data.card1Text);
+
+  setHTML("previewCard2Title",data.card2Title);
+
+  setHTML("previewCard2Text",data.card2Text);
+
+  setHTML("previewCard3Title",data.card3Title);
+
+  setHTML("previewCard3Text",data.card3Text);
+
+  setHTML("previewContactTitle",data.contactTitle);
+
+  setHTML("previewContactText",data.contactText);
+
+  setHTML("previewFooter",data.footerText);
+
+  const title =
+    document.getElementById("previewHeroTitle");
 
   if(title){
 
@@ -776,22 +807,26 @@ function renderPreview(){
 
   }
 
-  const tg = document.getElementById("previewTelegram");
+  const tg =
+    document.getElementById("previewTelegram");
 
   if(tg){
 
-    tg.href = data.telegramLink || "#";
+    tg.href =
+      data.telegramLink || "#";
 
     tg.innerHTML =
       data.telegramId || "Telegram";
 
   }
 
-  const kk = document.getElementById("previewKakao");
+  const kk =
+    document.getElementById("previewKakao");
 
   if(kk){
 
-    kk.href = data.kakaoLink || "#";
+    kk.href =
+      data.kakaoLink || "#";
 
     kk.innerHTML =
       data.kakaoId || "Kakao";
@@ -800,18 +835,19 @@ function renderPreview(){
 
 }
 
-fields.forEach(id => {
+fields.forEach(id=>{
 
-  document.addEventListener("input", e => {
+  document.addEventListener("input",e=>{
 
-    if(e.target.id === id){
+    if(e.target.id===id){
 
       data[id] = e.target.value;
 
       renderPreview();
 
-      document.getElementById("saveStatus").innerHTML =
-        "저장되지 않음";
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장되지 않음";
 
     }
 
@@ -823,8 +859,9 @@ function openPopup(field){
 
   currentImageField = field;
 
-  document.getElementById("popup").style.display =
-    "block";
+  document
+    .getElementById("popup")
+    .style.display = "block";
 
   loadImages();
 
@@ -832,8 +869,35 @@ function openPopup(field){
 
 function closePopup(){
 
-  document.getElementById("popup").style.display =
-    "none";
+  document
+    .getElementById("popup")
+    .style.display = "none";
+
+}
+
+function openUrlBox(field){
+
+  currentImageField = field;
+
+  document
+    .getElementById("popup")
+    .style.display = "block";
+
+  document
+    .getElementById("urlInputBox")
+    .style.display = "block";
+
+}
+
+function toggleUrlInput(){
+
+  const box =
+    document.getElementById("urlInputBox");
+
+  box.style.display =
+    box.style.display === "block"
+    ? "none"
+    : "block";
 
 }
 
@@ -842,32 +906,42 @@ async function loadImages(){
   const grid =
     document.getElementById("imageGrid");
 
-  if(!grid) return;
-
   grid.innerHTML = "불러오는 중...";
 
-  try {
+  try{
 
-    const res = await fetch("/api/images");
+    const res =
+      await fetch("/api/images");
 
-    const images = await res.json();
+    const images =
+      await res.json();
 
     grid.innerHTML = "";
 
-    images.forEach(img => {
+    if(!images.length){
+
+      grid.innerHTML =
+        "이미지 없음";
+
+      return;
+
+    }
+
+    images.forEach(img=>{
 
       const div =
         document.createElement("div");
 
       div.className = "image-item";
 
-      div.innerHTML = `<img src="${img}">`;
+      div.innerHTML =
+        `<img src="${img}">`;
 
-      div.onclick = () => {
+      div.onclick = ()=>{
 
         document
           .querySelectorAll(".image-item")
-          .forEach(i =>
+          .forEach(i=>
             i.classList.remove("selected")
           );
 
@@ -881,11 +955,12 @@ async function loadImages(){
 
     });
 
-  } catch(err){
+  }catch(err){
 
     console.error(err);
 
-    grid.innerHTML = "이미지 로드 실패";
+    grid.innerHTML =
+      "이미지 로드 실패";
 
   }
 
@@ -899,36 +974,27 @@ async function uploadImage(e){
 
   const form = new FormData();
 
-  form.append("file", file);
+  form.append("file",file);
 
-  try {
+  try{
 
     await fetch("/api/upload",{
+
       method:"POST",
+
       body:form
+
     });
 
     await loadImages();
 
-  } catch(err){
+  }catch(err){
 
     console.error(err);
 
     alert("업로드 실패");
 
   }
-
-}
-
-function toggleUrlInput(){
-
-  const box =
-    document.getElementById("urlInputBox");
-
-  box.style.display =
-    box.style.display === "block"
-    ? "none"
-    : "block";
 
 }
 
@@ -947,10 +1013,11 @@ function applyUrlImage(){
 
 function applySelectedImage(){
 
-  if(!selectedImage || !currentImageField)
-    return;
+  if(!selectedImage ||
+     !currentImageField) return;
 
-  data[currentImageField] = selectedImage;
+  data[currentImageField] =
+    selectedImage;
 
   const target =
     document.getElementById(currentImageField);
@@ -969,34 +1036,45 @@ function applySelectedImage(){
 
 document
   .getElementById("uploadInput")
-  .addEventListener("change", uploadImage);
+  .addEventListener(
+    "change",
+    uploadImage
+  );
 
 document
   .getElementById("saveBtn")
-  .onclick = async () => {
+  .onclick = async ()=>{
 
-    try {
+    try{
 
-      document.getElementById("saveStatus")
-      .innerHTML = "저장 중...";
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 중...";
 
       await fetch("/api/update",{
+
         method:"POST",
+
         headers:{
-          "Content-Type":"application/json"
+          "Content-Type":
+            "application/json"
         },
+
         body:JSON.stringify(data)
+
       });
 
-      document.getElementById("saveStatus")
-      .innerHTML = "저장 완료 ✓";
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 완료 ✓";
 
-    } catch(err){
+    }catch(err){
 
       console.error(err);
 
-      document.getElementById("saveStatus")
-      .innerHTML = "저장 실패";
+      document
+        .getElementById("saveStatus")
+        .innerHTML = "저장 실패";
 
     }
 
