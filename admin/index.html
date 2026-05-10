@@ -758,8 +758,62 @@ saveBtn.onclick=async()=>{
   });
   saveStatus.innerHTML="저장 완료 ✓";
 };
+<script>
 
-loadData();
+function toggleUrlInput(){
+
+  const box=document.getElementById("urlInputBox");
+
+  if(box.style.display==="block"){
+    box.style.display="none";
+  }else{
+    box.style.display="block";
+  }
+
+}
+
+function applyUrlImage(){
+
+  const input=document.getElementById("popupUrlInput");
+
+  if(!input.value) return;
+
+  data[currentImageField]=input.value;
+
+  const target=document.getElementById(currentImageField);
+
+  if(target){
+    target.value=input.value;
+  }
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+function applySelectedImage(){
+
+  if(!selectedImage) return;
+
+  data[currentImageField]=selectedImage;
+
+  const target=document.getElementById(currentImageField);
+
+  if(target){
+    target.value=selectedImage;
+  }
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+</script>
+
+  loadData();
+
 </script>
 
 </body>
