@@ -6,26 +6,27 @@ const ADMIN_PW = "1234";
 const JWT_SECRET = "supersecretkey";
 
 // ===============================
-// 🔐 Base64URL 인코딩
+// 🔐 Base64URL 인코딩 (Worker 100% 호환)
 // ===============================
-function base64url(arrayBuffer) {
-  let str = "";
-  const bytes = new Uint8Array(arrayBuffer);
-  for (let i = 0; i < bytes.byteLength; i++) {
-    str += String.fromCharCode(bytes[i]);
+function base64urlEncode(uint8Array) {
+  let binary = "";
+  for (let i = 0; i < uint8Array.length; i++) {
+    binary += String.fromCharCode(uint8Array[i]);
   }
-  return btoa(str).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 // ===============================
-// 🔐 JWT 생성 (Cloudflare Worker 전용)
+// 🔐 JWT 생성 (Cloudflare Worker 공식 방식)
 // ===============================
 async function createJWT(payload, secret) {
   const encoder = new TextEncoder();
 
-  const header = base64url(encoder.encode(JSON.stringify({ alg: "HS256", typ: "JWT" })));
+  const headerJson = JSON.stringify({ alg: "HS256", typ: "JWT" });
+  const payloadJson = JSON.stringify(payload);
 
-  const body = base64url(encoder.encode(JSON.stringify(payload)));
+  const header = base64urlEncode(encoder.encode(headerJson));
+  const body = base64urlEncode(encoder.encode(payloadJson));
 
   const key = await crypto.subtle.importKey(
     "raw",
@@ -35,13 +36,13 @@ async function createJWT(payload, secret) {
     ["sign"]
   );
 
-  const signatureArrayBuffer = await crypto.subtle.sign(
+  const signatureBuffer = await crypto.subtle.sign(
     "HMAC",
     key,
     encoder.encode(`${header}.${body}`)
   );
 
-  const signature = base64url(signatureArrayBuffer);
+  const signature = base64urlEncode(new Uint8Array(signatureBuffer));
 
   return `${header}.${body}.${signature}`;
 }
