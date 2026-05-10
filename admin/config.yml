@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: local
+  local_backend: true
 
 media_folder: "uploads"
 public_folder: "/uploads"
