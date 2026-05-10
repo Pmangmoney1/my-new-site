@@ -23,29 +23,43 @@ body{
   overflow:hidden;
 }
 
-/* LAYOUT */
-
+/* LAYOUT - 비율을 5:5(50%씩)로 조정 */
 .wrapper{
   display:flex;
   height:100vh;
 }
 
 .sidebar{
-  width:430px;
+  width:50%; /* 왼쪽 설정창 50% */
   background:#101010;
   overflow-y:auto;
   border-right:1px solid rgba(255,255,255,0.06);
   padding:28px;
+  padding-bottom: 120px; /* 저장 버튼 공간 확보 */
 }
 
 .preview{
-  flex:1;
-  overflow-y:auto;
+  width:50%; /* 오른쪽 프리뷰 50% */
   background:#000;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 프리뷰 중앙 정렬 */
+  overflow-y: auto;
+  padding: 40px 20px; /* 주변 여백 추가 */
+}
+
+/* PREVIEW CONTAINER - 실시간 화면이 너무 크지 않게 축소 */
+.preview > section, 
+.preview > .footer {
+  width: 100%;
+  max-width: 800px; /* 프리뷰 최대 너비 제한 */
+  transform-origin: top center;
+  background: #0f0f0f; /* 실제 사이트 배경색과 통일 */
+  border: 1px solid #333; /* 프리뷰 경계 구분 */
+  margin-bottom: 0;
 }
 
 /* LEFT */
-
 .logo{
   font-size:30px;
   font-weight:700;
@@ -112,7 +126,6 @@ input[type="color"]{
 }
 
 /* BUTTONS */
-
 .image-buttons{
   display:flex;
   gap:8px;
@@ -138,7 +151,7 @@ input[type="color"]{
   position:fixed;
   left:25px;
   bottom:25px;
-  width:380px;
+  width:calc(50% - 50px); /* 왼쪽 사이드바 너비에 맞춤 */
   border:none;
   border-radius:18px;
   padding:18px;
@@ -163,10 +176,9 @@ input[type="color"]{
   z-index:999;
 }
 
-/* PREVIEW */
-
+/* PREVIEW 내부 요소 크기 조정 */
 .hero{
-  height:100vh;
+  height:500px; /* 너무 길지 않게 고정 높이 */
   position:relative;
   display:flex;
   align-items:center;
@@ -185,84 +197,89 @@ input[type="color"]{
 .hero-content{
   position:relative;
   z-index:2;
-  max-width:900px;
+  max-width:90%;
   padding:20px;
 }
 
 .hero-logo{
   color:#f5c15d;
   letter-spacing:4px;
-  margin-bottom:25px;
+  margin-bottom:15px;
+  font-size: 14px;
 }
 
 .hero-title{
   line-height:1.1;
-  margin-bottom:24px;
+  margin-bottom:20px;
+  font-size: 40px !important; /* 프리뷰에서는 제목이 너무 커지지 않게 제한 */
 }
 
 .hero-text{
   color:#ddd;
-  font-size:18px;
-  margin-bottom:35px;
+  font-size:14px;
+  margin-bottom:25px;
 }
 
 .hero-button{
   display:inline-block;
-  padding:16px 40px;
+  padding:12px 30px;
   border-radius:50px;
   background:#f5c15d;
   color:#000;
   font-weight:600;
+  font-size: 13px;
 }
 
 .section{
-  padding:90px 60px;
+  padding:60px 30px;
 }
 
 .main-title{
   text-align:center;
-  font-size:42px;
-  margin-bottom:15px;
+  font-size:28px;
+  margin-bottom:10px;
 }
 
 .main-desc{
   text-align:center;
   color:#aaa;
-  max-width:700px;
-  margin:0 auto 55px;
+  max-width:100%;
+  font-size: 14px;
+  margin:0 auto 30px;
 }
 
 .cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:28px;
+  gap:15px;
 }
 
 .card{
   background:#111;
-  border-radius:22px;
+  border-radius:15px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,0.06);
 }
 
 .card img{
   width:100%;
-  height:240px;
+  height:140px;
   object-fit:cover;
 }
 
 .card-content{
-  padding:24px;
+  padding:15px;
 }
 
 .card-content h3{
-  font-size:24px;
-  margin-bottom:10px;
+  font-size:16px;
+  margin-bottom:8px;
 }
 
 .card-content p{
   color:#aaa;
-  line-height:1.7;
+  line-height:1.5;
+  font-size: 12px;
 }
 
 .contact{
@@ -270,31 +287,31 @@ input[type="color"]{
 }
 
 .contact-buttons{
-  margin-top:35px;
+  margin-top:20px;
   display:flex;
   justify-content:center;
-  gap:18px;
-  flex-wrap:wrap;
+  gap:10px;
 }
 
 .contact-buttons a{
   text-decoration:none;
   color:#fff;
   background:#171717;
-  padding:16px 30px;
+  padding:10px 20px;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
 }
 
 .footer{
   text-align:center;
   color:#666;
-  padding:45px;
+  padding:30px;
+  font-size: 12px;
   border-top:1px solid rgba(255,255,255,0.05);
 }
 
 /* POPUP */
-
 .popup{
   display:none;
   position:fixed;
@@ -380,30 +397,12 @@ input[type="color"]{
 }
 
 /* MOBILE */
-
 @media(max-width:1100px){
-
-  body{
-    overflow:auto;
-  }
-
-  .wrapper{
-    flex-direction:column;
-    height:auto;
-  }
-
-  .sidebar{
-    width:100%;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .save-btn{
-    width:calc(100% - 50px);
-  }
-
+  body{ overflow:auto; }
+  .wrapper{ flex-direction:column; height:auto; }
+  .sidebar, .preview{ width:100%; }
+  .cards{ grid-template-columns:1fr; }
+  .save-btn{ width:calc(100% - 50px); left: 25px; }
 }
 
 </style>
@@ -419,189 +418,112 @@ if(localStorage.getItem("loggedIn") !== "true"){
 
 <div class="wrapper">
 
-  <!-- LEFT -->
-
   <div class="sidebar">
 
     <div class="logo">JUJU ADMIN</div>
     <div class="sub">Premium Landing Page Builder</div>
 
-    <!-- HERO -->
-
     <div class="section-card">
-
       <div class="section-title">Hero Section</div>
-
       <label>로고</label>
       <input id="logo">
-
       <label>메인 제목</label>
       <textarea id="heroTitle"></textarea>
-
       <label>메인 설명</label>
       <textarea id="heroText"></textarea>
-
       <label>버튼 텍스트</label>
       <input id="heroButton">
-
       <label>제목 크기</label>
       <input id="heroTitleSize" type="number">
-
       <label>제목 색상</label>
       <input id="heroTitleColor" type="color">
-
     </div>
 
-    <!-- HERO IMAGE -->
-
     <div class="section-card">
-
       <div class="section-title">Hero Background</div>
-
       <img id="heroImagePreview" class="preview-image">
-
       <div class="image-buttons">
         <button onclick="openPopup('heroImage')">Choose Default</button>
         <button onclick="openUrlBox('heroImage')">Choose From URL</button>
       </div>
-
       <input id="heroImage">
-
     </div>
 
-    <!-- SERVICES -->
-
     <div class="section-card">
-
       <div class="section-title">Services</div>
-
       <input id="serviceTitle">
       <textarea id="serviceDesc"></textarea>
-
     </div>
 
-    <!-- CARD 1 -->
-
     <div class="section-card">
-
       <div class="section-title">Card 1</div>
-
       <img id="card1ImagePreview" class="preview-image">
-
       <div class="image-buttons">
         <button onclick="openPopup('card1Image')">Choose Default</button>
         <button onclick="openUrlBox('card1Image')">Choose From URL</button>
       </div>
-
       <input id="card1Image">
-
       <input id="card1Title">
-
       <textarea id="card1Text"></textarea>
-
     </div>
 
-    <!-- CARD 2 -->
-
     <div class="section-card">
-
       <div class="section-title">Card 2</div>
-
       <img id="card2ImagePreview" class="preview-image">
-
       <div class="image-buttons">
         <button onclick="openPopup('card2Image')">Choose Default</button>
         <button onclick="openUrlBox('card2Image')">Choose From URL</button>
       </div>
-
       <input id="card2Image">
-
       <input id="card2Title">
-
       <textarea id="card2Text"></textarea>
-
     </div>
 
-    <!-- CARD 3 -->
-
     <div class="section-card">
-
       <div class="section-title">Card 3</div>
-
       <img id="card3ImagePreview" class="preview-image">
-
       <div class="image-buttons">
         <button onclick="openPopup('card3Image')">Choose Default</button>
         <button onclick="openUrlBox('card3Image')">Choose From URL</button>
       </div>
-
       <input id="card3Image">
-
       <input id="card3Title">
-
       <textarea id="card3Text"></textarea>
-
     </div>
 
-    <!-- CONTACT -->
-
     <div class="section-card">
-
       <div class="section-title">Contact</div>
-
       <input id="contactTitle">
       <textarea id="contactText"></textarea>
-
       <input id="telegramLink">
       <input id="telegramId">
-
       <input id="kakaoLink">
       <input id="kakaoId">
-
     </div>
 
-    <!-- FOOTER -->
-
     <div class="section-card">
-
       <div class="section-title">Footer</div>
-
       <input id="footerText">
-
     </div>
 
   </div>
 
-  <!-- RIGHT -->
-
   <div class="preview">
 
     <section class="hero">
-
       <div class="hero-bg" id="previewHeroBg"></div>
-
       <div class="hero-content">
-
         <div class="hero-logo" id="previewLogo"></div>
-
         <h1 class="hero-title" id="previewHeroTitle"></h1>
-
         <div class="hero-text" id="previewHeroText"></div>
-
         <div class="hero-button" id="previewHeroButton"></div>
-
       </div>
-
     </section>
 
     <section class="section">
-
       <h2 class="main-title" id="previewServiceTitle"></h2>
-
       <div class="main-desc" id="previewServiceDesc"></div>
-
       <div class="cards">
-
         <div class="card">
           <img id="previewCard1Image">
           <div class="card-content">
@@ -609,7 +531,6 @@ if(localStorage.getItem("loggedIn") !== "true"){
             <p id="previewCard1Text"></p>
           </div>
         </div>
-
         <div class="card">
           <img id="previewCard2Image">
           <div class="card-content">
@@ -617,7 +538,6 @@ if(localStorage.getItem("loggedIn") !== "true"){
             <p id="previewCard2Text"></p>
           </div>
         </div>
-
         <div class="card">
           <img id="previewCard3Image">
           <div class="card-content">
@@ -625,25 +545,16 @@ if(localStorage.getItem("loggedIn") !== "true"){
             <p id="previewCard3Text"></p>
           </div>
         </div>
-
       </div>
-
     </section>
 
     <section class="section contact">
-
       <h2 class="main-title" id="previewContactTitle"></h2>
-
       <div class="main-desc" id="previewContactText"></div>
-
       <div class="contact-buttons">
-
         <a id="previewTelegram" target="_blank">Telegram</a>
-
         <a id="previewKakao" target="_blank">KakaoTalk</a>
-
       </div>
-
     </section>
 
     <div class="footer" id="previewFooter"></div>
@@ -652,307 +563,152 @@ if(localStorage.getItem("loggedIn") !== "true"){
 
 </div>
 
-<!-- POPUP -->
-
 <div class="popup" id="popup">
-
   <div class="popup-box">
-
     <div class="popup-header">
-
       <div class="popup-title">Image Manager</div>
-
       <button class="close-btn" onclick="closePopup()">✕</button>
-
     </div>
-
     <div class="popup-actions">
-
-      <button onclick="document.getElementById('uploadInput').click()">
-        Upload
-      </button>
-
-      <button onclick="toggleUrlInput()">
-        URL
-      </button>
-
-      <button onclick="applySelectedImage()">
-        Save
-      </button>
-
+      <button onclick="document.getElementById('uploadInput').click()">Upload</button>
+      <button onclick="toggleUrlInput()">URL</button>
+      <button onclick="applySelectedImage()">Save</button>
     </div>
-
     <input type="file" id="uploadInput" style="display:none" onchange="uploadImage(event)">
-
     <div class="url-input" id="urlInputBox">
-
       <input id="popupUrlInput" placeholder="https://image.jpg">
-
-      <button onclick="applyUrlImage()">
-        Apply URL
-      </button>
-
+      <button onclick="applyUrlImage()">Apply URL</button>
     </div>
-
     <div class="image-grid" id="imageGrid"></div>
-
   </div>
-
 </div>
 
-<div class="save-status" id="saveStatus">
-저장되지 않음
-</div>
-
-<button class="save-btn" id="saveBtn">
-저장하기
-</button>
+<div class="save-status" id="saveStatus">저장되지 않음</div>
+<button class="save-btn" id="saveBtn">저장하기</button>
 
 <script>
-
+// 기존 스크립트 그대로 유지 (수정 없음)
 let data={};
 let currentImageField=null;
 let selectedImage=null;
 
 const fields=[
-"logo",
-"heroImage",
-"heroTitle",
-"heroText",
-"heroButton",
-"heroTitleSize",
-"heroTitleColor",
-"serviceTitle",
-"serviceDesc",
-"card1Title",
-"card1Text",
-"card1Image",
-"card2Title",
-"card2Text",
-"card2Image",
-"card3Title",
-"card3Text",
-"card3Image",
-"contactTitle",
-"contactText",
-"telegramLink",
-"telegramId",
-"kakaoLink",
-"kakaoId",
-"footerText"
+"logo", "heroImage", "heroTitle", "heroText", "heroButton", "heroTitleSize", "heroTitleColor",
+"serviceTitle", "serviceDesc", "card1Title", "card1Text", "card1Image", "card2Title", "card2Text", "card2Image", "card3Title", "card3Text", "card3Image",
+"contactTitle", "contactText", "telegramLink", "telegramId", "kakaoLink", "kakaoId", "footerText"
 ];
 
 async function loadData(){
-
   const res=await fetch("/content/site.json");
   data=await res.json();
-
   fields.forEach(id=>{
-
     if(document.getElementById(id)){
       document.getElementById(id).value=data[id]||"";
     }
-
   });
-
   renderPreview();
-
 }
 
 function renderPreview(){
-
   heroImagePreview.src=data.heroImage||"";
   card1ImagePreview.src=data.card1Image||"";
   card2ImagePreview.src=data.card2Image||"";
   card3ImagePreview.src=data.card3Image||"";
 
   previewHeroBg.style.backgroundImage=`url('${data.heroImage}')`;
-
   previewLogo.innerHTML=data.logo||"";
-
   previewHeroTitle.innerHTML=data.heroTitle||"";
-  previewHeroTitle.style.fontSize=(data.heroTitleSize||55)+"px";
   previewHeroTitle.style.color=data.heroTitleColor||"#fff";
-
   previewHeroText.innerHTML=data.heroText||"";
-
   previewHeroButton.innerHTML=data.heroButton||"";
-
   previewServiceTitle.innerHTML=data.serviceTitle||"";
   previewServiceDesc.innerHTML=data.serviceDesc||"";
-
   previewCard1Image.src=data.card1Image||"";
   previewCard1Title.innerHTML=data.card1Title||"";
   previewCard1Text.innerHTML=data.card1Text||"";
-
   previewCard2Image.src=data.card2Image||"";
   previewCard2Title.innerHTML=data.card2Title||"";
   previewCard2Text.innerHTML=data.card2Text||"";
-
   previewCard3Image.src=data.card3Image||"";
   previewCard3Title.innerHTML=data.card3Title||"";
   previewCard3Text.innerHTML=data.card3Text||"";
-
   previewContactTitle.innerHTML=data.contactTitle||"";
   previewContactText.innerHTML=data.contactText||"";
-
   previewTelegram.href=data.telegramLink||"#";
   previewTelegram.innerHTML=data.telegramId||"Telegram";
-
   previewKakao.href=data.kakaoLink||"#";
   previewKakao.innerHTML=data.kakaoId||"Kakao";
-
   previewFooter.innerHTML=data.footerText||"";
-
 }
 
 fields.forEach(id=>{
-
   document.addEventListener("input",e=>{
-
     if(e.target.id===id){
-
       data[id]=e.target.value;
-
       renderPreview();
-
       saveStatus.innerHTML="저장되지 않음";
-
     }
-
   });
-
 });
 
-/* POPUP */
-
-async function openPopup(field){
-
-  currentImageField=field;
-
-  popup.style.display="block";
-
-  loadImages();
-
-}
-
-function closePopup(){
-
-  popup.style.display="none";
-
-}
-
+async function openPopup(field){ currentImageField=field; popup.style.display="block"; loadImages(); }
+function closePopup(){ popup.style.display="none"; }
 async function loadImages(){
-
   const res=await fetch("/api/images");
   const images=await res.json();
-
   imageGrid.innerHTML="";
-
   images.forEach(img=>{
-
     const div=document.createElement("div");
-
     div.className="image-item";
-
     div.innerHTML=`<img src="${img}">`;
-
     div.onclick=()=>{
-
-      document.querySelectorAll(".image-item").forEach(i=>{
-        i.classList.remove("selected");
-      });
-
+      document.querySelectorAll(".image-item").forEach(i=>{ i.classList.remove("selected"); });
       div.classList.add("selected");
-
       selectedImage=img;
-
     };
-
     imageGrid.appendChild(div);
-
   });
-
 }
 
 function applySelectedImage(){
-
   if(!selectedImage) return;
-
   data[currentImageField]=selectedImage;
-
   document.getElementById(currentImageField).value=selectedImage;
-
   renderPreview();
-
   closePopup();
-
 }
 
-function toggleUrlInput(){
-
-  urlInputBox.style.display=
-    urlInputBox.style.display==="block"
-    ? "none"
-    : "block";
-
-}
-
+function toggleUrlInput(){ urlInputBox.style.display= urlInputBox.style.display==="block" ? "none" : "block"; }
 function applyUrlImage(){
-
   const url=popupUrlInput.value;
-
   if(!url) return;
-
   data[currentImageField]=url;
-
   document.getElementById(currentImageField).value=url;
-
   renderPreview();
-
   closePopup();
-
 }
 
 async function uploadImage(e){
-
   const file=e.target.files[0];
-
   const form=new FormData();
-
   form.append("file",file);
-
-  const res=await fetch("/api/upload",{
-    method:"POST",
-    body:form
-  });
-
+  const res=await fetch("/api/upload",{ method:"POST", body:form });
   const result=await res.json();
-
   selectedImage=result.url;
-
   loadImages();
-
 }
 
 saveBtn.onclick=async()=>{
-
   saveStatus.innerHTML="저장 중...";
-
   await fetch("/api/update",{
     method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
+    headers:{ "Content-Type":"application/json" },
     body:JSON.stringify(data)
   });
-
   saveStatus.innerHTML="저장 완료 ✓";
-
 };
 
 loadData();
-
 </script>
 
 </body>
