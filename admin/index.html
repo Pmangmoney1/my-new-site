@@ -708,67 +708,73 @@
 	   }
 	}
 
-	saveBtn.onclick=async()=>{
-	 saveStatus.innerHTML="저장 중...";
-	 await fetch("/api/update",{
-	   method:"POST",
-	   headers:{ "Content-Type":"application/json" },
-	   body:JSON.stringify(data)
-	 });
-	 saveStatus.innerHTML="저장 완료 ✓";
-	};
-	<script>
+	saveBtn.onclick = async () => {
 
-	function toggleUrlInput(){
+  try{
 
-	 const box=document.getElementById("urlInputBox");
+    saveStatus.innerHTML = "저장 중...";
 
-	 if(box.style.display==="block"){
-	   box.style.display="none";
-	 }else{
-	   box.style.display="block";
-	 }
+    await fetch("/api/update",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(data)
+    });
 
-	}
+    saveStatus.innerHTML = "저장 완료 ✓";
 
-	function applyUrlImage(){
+  }catch(err){
 
-	 const input=document.getElementById("popupUrlInput");
+    console.error(err);
+    saveStatus.innerHTML = "저장 실패";
 
-	 if(!input.value) return;
+  }
 
-	 data[currentImageField]=input.value;
+};
 
-	 const target=document.getElementById(currentImageField);
+function toggleUrlInput(){
 
-	 if(target){
-	   target.value=input.value;
-	 }
+  const box = document.getElementById("urlInputBox");
 
-	 renderPreview();
+  if(box.style.display === "block"){
+    box.style.display = "none";
+  }else{
+    box.style.display = "block";
+  }
 
-	 closePopup();
+}
 
-	}
+function applyUrlImage(){
 
-	function applySelectedImage(){
+  const input = document.getElementById("popupUrlInput");
 
-	 if(!selectedImage) return;
+  if(!input.value) return;
 
-	 data[currentImageField]=selectedImage;
+  selectedImage = input.value;
 
-	 const target=document.getElementById(currentImageField);
+  applySelectedImage();
 
-	 if(target){
-	   target.value=selectedImage;
-	 }
+}
 
-	 renderPreview();
+function applySelectedImage(){
 
-	 closePopup();
+  if(!selectedImage || !currentImageField) return;
 
-	}
+  data[currentImageField] = selectedImage;
 
-	</script> loadData(); 
-</body>
-</html>
+  const targetInput = document.getElementById(currentImageField);
+
+  if(targetInput){
+    targetInput.value = selectedImage;
+  }
+
+  renderPreview();
+
+  closePopup();
+
+}
+
+document.getElementById("uploadInput").addEventListener("change", uploadImage);
+
+loadData();
