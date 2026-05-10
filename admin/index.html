@@ -6,10 +6,20 @@
   <title>Content Manager</title>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
+  <!-- 🔐 로그인 체크 -->
   <script>
-    // 관리자 페이지 이미지 미리보기 스타일 (이것만 남깁니다)
+    const token = localStorage.getItem("token");
+    if (!token) {
+      location.href = "/login/";
+    }
+  </script>
+
+  <!-- 📌 Decap CMS 로딩 -->
+  <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+
+  <!-- 🖼 이미지 미리보기 스타일 유지 -->
+  <script>
     CMS.registerPreviewStyle(`
       img {
         max-width: 100% !important;
@@ -21,5 +31,6 @@
       }
     `, { raw: true });
   </script>
+
 </body>
 </html>
