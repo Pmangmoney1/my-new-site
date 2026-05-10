@@ -13,6 +13,13 @@
 </head>
 <body>
 
+<script>
+  // ⭐ 로그인 안 했으면 로그인 페이지로 강제 이동
+  if (localStorage.getItem("loggedIn") !== "true") {
+    location.href = "/login.html";
+  }
+</script>
+
 <h1>사이트 설정 관리자</h1>
 
 <div id="form"></div>
@@ -88,7 +95,7 @@
       data[f.key] = document.getElementById(f.key).value;
     });
 
-    const res = await fetch("/api/update", {
+    await fetch("/api/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
