@@ -9,6 +9,57 @@
     input, textarea { width: 100%; padding: 10px; margin: 5px 0 15px; }
     img { max-width: 200px; display: block; margin: 10px 0; }
     button { padding: 12px 20px; font-size: 16px; cursor: pointer; }
+  .image-picker button {
+  padding: 8px 14px;
+  margin-right: 6px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.popup {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+}
+
+.popup-content {
+  width:420px;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+  margin:80px auto;
+}
+
+.image-list {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:10px;
+  max-height:300px;
+  overflow:auto;
+}
+
+.image-list img {
+  width:100%;
+  border-radius:6px;
+  cursor:pointer;
+  border:3px solid transparent;
+}
+
+.image-list img.selected {
+  border-color:#ffcc00;
+}
+
+.url-box {
+  display:none;
+  margin-top:10px;
+}
+
+  
   </style>
 </head>
 <body>
@@ -23,6 +74,31 @@
 <h1>사이트 설정 관리자</h1>
 
 <div id="form"></div>
+<!-- 이미지 선택 버튼 -->
+<div class="image-picker">
+  <button onclick="openImagePopup()">기본 이미지 선택</button>
+  <button onclick="document.getElementById('fileInput').click()">파일 업로드</button>
+  <button onclick="openUrlInput()">URL로 불러오기</button>
+
+  <input type="file" id="fileInput" style="display:none" onchange="uploadFile(event)">
+</div>
+
+<!-- 팝업 -->
+<div id="imagePopup" class="popup">
+  <div class="popup-content">
+    <h3>기본 이미지 선택</h3>
+    <div id="imageList" class="image-list"></div>
+
+    <button onclick="selectDefaultImage()">선택하기</button>
+    <button onclick="closeImagePopup()">닫기</button>
+  </div>
+</div>
+
+<!-- URL 입력 -->
+<div id="urlBox" class="url-box">
+  <input id="urlInput" placeholder="이미지 URL 입력">
+  <button onclick="applyUrl()">적용</button>
+</div>
 
 <button id="saveBtn">저장하기</button>
 
@@ -65,6 +141,75 @@
   ];
 
   let data = {};
+   let selectedImage = null;
+
+// 팝업 열기
+function openImagePopup() {
+  document.getElementById("imagePopup").style.display = "block";
+
+  fetch("/uploads/")
+    .then(res => res.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const links = [...doc.querySelectorAll("a")];
+
+      const images = links
+        .map(a => a.getAttribute("href"))
+        .filter(h => h.match(/\.(jpg|jpeg|png|gif)$/i));
+
+      const list = document.getElementById("imageList");
+      list.innerHTML = "";
+
+      images.forEach(img => {
+        const el = document.createElement("img");
+        el.src = "/uploads/" + img;
+        el.onclick = () => {
+          document.querySelectorAll(".image-list img").forEach(i => i.classList.remove("selected"));
+          el.classList.add("selected");
+          selectedImage = "/uploads/" + img;
+        };
+        list.appendChild(el);
+      });
+    });
+}
+
+// 팝업 닫기
+function closeImagePopup() {
+  document.getElementById("imagePopup").style.display = "none";
+}
+
+// 기본 이미지 선택 적용
+function selectDefaultImage() {
+  if (!selectedImage) return;
+  document.getElementById("imageInput").value = selectedImage;
+  closeImagePopup();
+}
+
+// 파일 업로드
+function uploadFile(e) {
+  const file = e.target.files[0];
+  const form = new FormData();
+  form.append("file", file);
+
+  fetch("/api/upload", { method:"POST", body:form })
+    .then(r => r.json())
+    .then(d => {
+      document.getElementById("imageInput").value = d.url;
+    });
+}
+
+// URL 입력창 열기
+function openUrlInput() {
+  document.getElementById("urlBox").style.display = "block";
+}
+
+// URL 적용
+function applyUrl() {
+  const url = document.getElementById("urlInput").value;
+  document.getElementById("imageInput").value = url;
+  document.getElementById("urlBox").style.display = "none";
+}
 
   async function loadData() {
     const res = await fetch("/content/site.json");
