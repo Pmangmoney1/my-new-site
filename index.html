@@ -75,7 +75,6 @@ height:100vh;
 display:flex;
 align-items:center;
 text-align:center;
-/* 초기 배경 이미지는 데이터를 불러오기 전까지 기본 검은색 배경으로 처리됩니다 */
 background-size:cover;
 background-position:center;
 }
@@ -196,6 +195,14 @@ color:#bdbdbd;
     border-radius: 20px;
     padding: 20px 10px;
     text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* 환율 카드 호버 추가 */
+.exchange-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffd700;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.15);
 }
 
 .exchange-label {
@@ -237,10 +244,20 @@ border-radius:18px;
 font-size:18px;
 font-weight:600;
 min-width:220px;
+transition: all 0.3s ease;
+}
+
+/* 연락처 버튼 호버 추가 */
+.contact-btn:hover {
+    transform: scale(1.05);
+    background: #ffd700 !important;
+    color: #000 !important;
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
 }
 
 .telegram{
 background:#229ED9;
+color:#fff;
 }
 
 .kakao{
@@ -392,9 +409,11 @@ KAKAO TALK
 </footer>
 
 <script>
+// 실시간 환율 갱신 로직 수정
 async function updateExchangeRates() {
   try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    // 캐시 방지를 위해 쿼리스트링 추가
+    const res = await fetch('https://open.er-api.com/v6/latest/USD?t=' + Date.now());
     const data = await res.json();
     const rates = data.rates;
 
@@ -402,8 +421,9 @@ async function updateExchangeRates() {
     const usdPhp = rates.PHP;
     const usdCny = rates.CNY;
 
+    // 계산 로직 정확히 수정
     document.getElementById('rateKrwPhp').innerText = (usdKrw / usdPhp).toFixed(2) + "원";
-    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString() + "원";
+    document.getElementById('rateKrwUsd').innerText = (usdKrw).toLocaleString(undefined, {maximumFractionDigits: 0}) + "원";
     document.getElementById('rateKrwCny').innerText = (usdKrw / usdCny).toFixed(2) + "원";
     document.getElementById('rateCnyPhp').innerText = (usdPhp / usdCny).toFixed(2) + " PHP";
 
@@ -412,18 +432,16 @@ async function updateExchangeRates() {
   }
 }
 
-// 3. 캐시 방지 및 실시간 데이터 매칭
 fetch('content/site.json?t=' + new Date().getTime())
 .then(res => res.json())
 .then(data => {
 
 if(data.logo) {
-    document.title = data.logo; // 탭 이름 업데이트
+    document.title = data.logo;
     document.getElementById('logo').innerText = data.logo;
 }
 
 if(data.heroImage) {
-  // 배경 밝기 조절 (rgba 수치를 낮게 유지)
   document.querySelector('.hero').style.backgroundImage = 
     `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2)), url(${data.heroImage})`;
 }
@@ -467,6 +485,7 @@ document.getElementById('kakaoLink').innerHTML = 'KAKAO TALK<br>' + data.kakaoId
 
 document.getElementById('footerText').innerText = data.footerText;
 
+// 페이지 로드 시 즉시 환율 업데이트 실행
 updateExchangeRates();
 
 });
