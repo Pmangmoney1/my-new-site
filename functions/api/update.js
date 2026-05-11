@@ -41,7 +41,17 @@ export async function onRequest(context) {
 
     // Step 2: Parse the incoming request body
     const body = await context.request.json();
-    const newContent = btoa(JSON.stringify(body.content || body, null, 2));
+    const utf8Bytes = new TextEncoder().encode(
+  JSON.stringify(body.content || body, null, 2)
+);
+
+let binary = "";
+
+utf8Bytes.forEach(b => {
+  binary += String.fromCharCode(b);
+});
+
+const newContent = btoa(binary);
 
     // Step 3: Update the file
     const putRes = await fetch(
