@@ -38,7 +38,7 @@ export async function onRequestPost(context) {
 
 
 
-    await fetch(
+    const update = await fetch(
       `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
       {
         method: "PUT",
@@ -56,15 +56,26 @@ export async function onRequestPost(context) {
 
 
 
+    const result = await update.json();
+
+    return Response.json({
+      success: true,
+      result
+    });
+
+  } catch (e) {
+
     return new Response(
-  JSON.stringify({
-    success:false,
-    error:e.toString()
-  }),
-  {
-    status:500,
-    headers:{
-      "Content-Type":"application/json"
-    }
+      JSON.stringify({
+        success: false,
+        error: e.toString()
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }
+    );
   }
-);
+}
