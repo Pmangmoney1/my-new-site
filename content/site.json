@@ -3,10 +3,10 @@
   "serviceTitle": "VIP SERVICE123",
   "heroTitleColor": "#ffffff",
   "serviceDesc": "JUJU 에이전시 프리미엄 카지노 서비스 테스트123",
-  "heroText": "필리핀 카지노 VIP 서비스 및 프리미엄 여행 지원 서비스123",
+  "heroText": "필리핀 카지노 VIP 서비스 및 프리미엄 여행 지원 서비스",
   "footerText": "@asim_ace",
   "logo": "philjuju ",
-  "heroButton": "상담 문의123",
+  "heroButton": "상담 문의",
   "contactText": "텔레그램 또는 카카오톡으로 문의 가능합니다.123",
   "card1Text": "VIP 호텔 및 카지노 예약 지원123",
   "card2Text": "바카라, 슬롯, 라이브 카지노 서비스123",
@@ -22,6 +22,6 @@
   "telegramId": "",
   "kakaoLink": "#",
   "kakaoId": "",
-  "heroTitle": "고품격 vip서비스",
+  "heroTitle": "테스트 ",
   "heroTitleSize": "35"
 }
