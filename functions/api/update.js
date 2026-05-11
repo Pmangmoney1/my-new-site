@@ -71,10 +71,19 @@ export async function onRequest(context) {
       }), { status: 502, headers: { "Content-Type": "application/json" } });
     }
 
-    const result = await putRes.json();
-    return new Response(JSON.stringify({ success: true, commit: result.commit }), {
-      headers: { "Content-Type": "application/json" },
-    });
+    const text = await putRes.text();
+
+return new Response(
+  JSON.stringify({
+    success: true,
+    github: text
+  }),
+  {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
+);
 
   } catch (err) {
     return new Response(JSON.stringify({ success: false, error: err.message }), {
