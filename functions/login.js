@@ -10,8 +10,8 @@ export async function onRequest(context) {
   const { id, password } = data;
 
   // frelyn이 쓰던 로그인 정보 그대로 넣기
-  const ADMIN_ID = "admin";
-  const ADMIN_PW = "1234";
+  const ADMIN_ID = "philjuju";
+  const ADMIN_PW = "juju4885";
 
   if (id === ADMIN_ID && password === ADMIN_PW) {
     return new Response(JSON.stringify({ success: true }), {
