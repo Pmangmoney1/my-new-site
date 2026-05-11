@@ -1,17 +1,7 @@
 export async function onRequestGet() {
 
-  const images = [
-
-    "/uploads/sample1.jpg",
-    "/uploads/sample2.jpg",
-    "/uploads/sample3.jpg"
-
-  ];
-
-  return new Response(JSON.stringify(images), {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
+  return Response.json([
+    "https://res.cloudinary.com/dxnztulzc/image/upload/v1778465635/photo_2026-04-27_16-45-20_dwpdhz.jpg"
+  ]);
 
 }
