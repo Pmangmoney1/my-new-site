@@ -56,15 +56,15 @@ export async function onRequestPost(context) {
 
 
 
-    return Response.json({
-      success: true
-    });
-
-  } catch (e) {
-
-    return Response.json({
-      success: false,
-      error: e.toString()
-    });
+    return new Response(
+  JSON.stringify({
+    success:false,
+    error:e.toString()
+  }),
+  {
+    status:500,
+    headers:{
+      "Content-Type":"application/json"
+    }
   }
-}
+);
