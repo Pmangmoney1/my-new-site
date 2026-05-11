@@ -16,7 +16,7 @@ export async function onRequestPost(context) {
       `https://api.github.com/repos/${owner}/${repo}/contents/${path}`,
       {
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `Bearer ${token}`,
           Accept: "application/vnd.github+json"
         }
       }
@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
       {
         method: "PUT",
         headers: {
-          Authorization: `token ${token}`,
+          Authorization: `Bearer ${token}`,
           Accept: "application/vnd.github+json"
         },
         body: JSON.stringify({
