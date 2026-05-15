@@ -674,107 +674,83 @@ img {
 }
 
 @media (max-width: 640px) {
-  .container {
-    width: min(100% - 28px, 1160px);
+
+  .container{
+    width:calc(100% - 24px);
   }
 
-  .header-inner {
-    height: 64px;
+  .header-inner{
+    height:60px;
   }
 
-  .header-cta {
-    display: none;
+  .header-cta{
+    display:none;
   }
 
-  .hero {
-    min-height: 94svh;
-    padding-top: 94px;
+  .hero{
+    min-height:auto;
+    padding:100px 0 60px;
   }
 
-  .hero-grid {
-    width: calc(100vw - 28px);
+  .hero-grid,
+  .coverage-grid,
+  .contact-box,
+  .services-grid,
+  .steps{
+    grid-template-columns:1fr;
+    gap:24px;
   }
 
-  .hero h1 {
-    width: calc(100vw - 28px);
-    max-width: calc(100vw - 28px);
-    font-size: 34px;
-    line-height: 1.08;
-    overflow-wrap: anywhere;
-    word-break: break-all;
+  .hero h1{
+    font-size:38px;
+    line-height:1.15;
+    word-break:keep-all;
   }
 
-  .hero-text {
-    width: calc(100vw - 28px);
-    max-width: calc(100vw - 28px);
-    font-size: 16px;
-    overflow-wrap: anywhere;
-    word-break: break-all;
+  .hero-text{
+    font-size:15px;
+    line-height:1.6;
+    word-break:keep-all;
   }
 
-  .hero-actions .btn {
-    width: 100%;
+  .hero-actions{
+    flex-direction:column;
   }
 
-  .section {
-    padding: 72px 0;
+  .hero-actions .btn{
+    width:100%;
   }
 
-  .rates {
-    margin-top: 0;
-    padding-top: 20px;
+  .rate-wrap{
+    grid-template-columns:1fr;
   }
 
-  .rate-wrap,
-  .badge-grid {
-    grid-template-columns: 1fr 1fr;
+  .badge-grid{
+    grid-template-columns:1fr 1fr;
   }
 
-  .service-card {
-    min-height: auto;
+  .contact-box{
+    padding:24px;
   }
 
-  .contact-box {
-    padding: 28px;
+  .footer-inner{
+    flex-direction:column;
   }
 
-  .contact-actions {
-    min-width: 0;
+  .mobile-sticky{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:60;
+    display:grid;
+    grid-template-columns:1fr 1fr;
   }
 
-  .footer-inner {
-    flex-direction: column;
+  .mobile-sticky a{
+    min-height:56px;
   }
 
-  .mobile-sticky {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 60;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: rgba(0, 0, 0, 0.6);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .mobile-sticky a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 58px;
-    font-weight: 800;
-  }
-
-  .mobile-sticky a:first-child {
-    background: #229ed9;
-  }
-
-  .mobile-sticky a:last-child {
-    background: #fee500;
-    color: #111;
-  }
 }
 </style>
 </head>
