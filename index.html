@@ -1100,14 +1100,19 @@ fetch("content/site.json?t=" + Date.now())
       setMeta('meta[name="twitter:image"]', data.heroImage);
     }
 
-    setText("heroTitle", data.heroTitle);
-    setText("heroText", data.heroText);
-    setText("heroButton", data.heroButton);
-    setText("headerButton", data.heroButton);
+   setText("heroTitle", data.heroTitle);
+   setText("heroText", data.heroText);
+   setText("heroButton", data.heroButton);
+   setText("headerButton", data.heroButton);
 
-    if (data.heroTitleColor) {
-      document.getElementById("heroTitle").style.color = data.heroTitleColor;
-    }
+  if (data.heroTitleSize) {
+    document.getElementById("heroTitle").style.fontSize =
+    data.heroTitleSize + "px";
+}
+
+if (data.heroTitleColor) {
+  document.getElementById("heroTitle").style.color = data.heroTitleColor;
+}
 
     setText("serviceTitle", data.serviceTitle);
     setText("serviceDesc", data.serviceDesc);
